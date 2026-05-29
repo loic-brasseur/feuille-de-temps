@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Feuille de temps">
+  <meta name="theme-color" content="#FBF5EC">
+  <link rel="apple-touch-icon" href="data:image/png;base64,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">
+  <title>Feuille de temps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: 'Manrope', system-ui, sans-serif;
+      color: #1A1612;
+      background: #FBF5EC;
+      min-height: 100vh;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+      -webkit-overflow-scrolling: touch;
+    }
+    body {
+      background: radial-gradient(ellipse at top, #FBF5EC 0%, #F4ECDC 100%);
+      padding:
+        max(1rem, env(safe-area-inset-top))
+        max(0.75rem, env(safe-area-inset-right))
+        max(2rem, env(safe-area-inset-bottom))
+        max(0.75rem, env(safe-area-inset-left));
+    }
+    .container { max-width: 780px; margin: 0 auto; }
+    header { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(224, 212, 190, 0.6); }
+    .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+    h1 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1; margin: 0; }
+    .subtitle { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.9375rem; color: #7A6F5C; margin-top: 0.375rem; }
+    .input {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      padding: 0.625rem 0.75rem;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid #E0D4BE;
+      border-radius: 8px;
+      color: #1A1612;
+      width: 100%;
+      transition: all 0.15s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      min-height: 42px;
+    }
+    .input:focus {
+      outline: none; border-color: #B8842F;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 0 3px rgba(184, 132, 47, 0.12);
+    }
+    .btn {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.875rem; font-weight: 500;
+      padding: 0.625rem 1.125rem;
+      border-radius: 999px; border: none;
+      cursor: pointer; transition: all 0.15s ease;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      min-height: 44px; touch-action: manipulation;
+    }
+    .btn-primary { background: #1A1612; color: #FBF5EC; }
+    .btn-primary:active { background: #2D2620; transform: scale(0.97); }
+    .btn-secondary { background: rgba(184, 132, 47, 0.15); color: #8A6320; }
+    .btn-secondary:active { background: rgba(184, 132, 47, 0.25); transform: scale(0.97); }
+    .btn-ghost { background: transparent; color: #7A6F5C; padding: 0.5rem; min-height: 40px; min-width: 40px; }
+    .btn-ghost:active { background: rgba(0, 0, 0, 0.05); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .card {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(224, 212, 190, 0.6);
+      border-radius: 14px; padding: 1rem;
+      transition: all 0.2s ease; backdrop-filter: blur(4px);
+    }
+    .card-today {
+      background: linear-gradient(135deg, #FFF8E8 0%, #FFEFCC 100%);
+      border-color: #C9962B;
+      box-shadow: 0 4px 16px rgba(201, 150, 43, 0.15);
+    }
+    .card-weekend { background: rgba(244, 236, 220, 0.5); border-color: rgba(224, 212, 190, 0.4); }
+    .card-ferie {
+      background: linear-gradient(135deg, #FBE8E8 0%, #F5D7D2 100%);
+      border-color: #C56B5A;
+    }
+    .pill {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.75rem; font-weight: 500;
+      padding: 0.5rem 0.875rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer; transition: all 0.15s ease;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.7);
+      color: #7A6F5C;
+      min-height: 32px; touch-action: manipulation;
+    }
+    .pill:active { transform: scale(0.95); }
+    .pill-active {
+      background: var(--pill-bg, #FFF);
+      color: var(--pill-color, #1A1612);
+      border-color: var(--pill-color, #1A1612);
+    }
+    .pills-row {
+      display: flex; gap: 0.375rem;
+      overflow-x: auto;
+      padding: 0 0 0.375rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .pills-row::-webkit-scrollbar { display: none; }
+    .ferie-badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.6875rem; font-weight: 600;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      background: rgba(197, 107, 90, 0.15);
+      color: #9A4F3E;
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .night-badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.6875rem; font-weight: 600;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      background: rgba(61, 90, 108, 0.15);
+      color: #3D5A6C;
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .week-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .week-label-week { font-family: 'Fraunces', serif; font-size: 0.75rem; color: #7A6F5C; text-transform: uppercase; letter-spacing: 0.15em; margin: 0; font-weight: 500; }
+    .week-label-dates { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 500; margin: 0.125rem 0 0; }
+    .summary {
+      margin-bottom: 1.25rem; padding: 1.25rem;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1A1612 0%, #2D2620 100%);
+      color: #FBF5EC;
+      box-shadow: 0 10px 30px rgba(26, 22, 18, 0.15);
+    }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center; }
+    .summary-label { font-size: 0.625rem; color: #A89F90; text-transform: uppercase; letter-spacing: 0.15em; margin: 0; font-weight: 500; }
+    .summary-value { font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; font-weight: 600; margin: 0.375rem 0 0; letter-spacing: -0.01em; }
+    .summary-value-highlight { color: #E8B547; }
+    .summary-value-warning { color: #E89547; }
+    .summary-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(251, 245, 236, 0.15); }
+    .summary-cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; text-align: center; }
+    .summary-cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; text-align: center; }
+    .summary-sublabel { font-size: 0.5625rem; color: #A89F90; text-transform: uppercase; letter-spacing: 0.12em; margin: 0; font-weight: 500; }
+    .summary-subvalue { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 600; margin: 0.25rem 0 0; letter-spacing: -0.01em; color: #FBF5EC; }
+    .summary-subnote { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.625rem; color: #A89F90; margin: 0.25rem 0 0; line-height: 1.2; }
+    .day-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+    .day-name { font-family: 'Fraunces', serif; font-size: 1.1875rem; font-weight: 600; margin: 0; display: inline; }
+    .day-name-muted { color: #7A6F5C; }
+    .day-date { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.8125rem; color: #7A6F5C; margin-left: 0.375rem; }
+    .day-total { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 600; }
+    .day-total-empty { color: #A89F8A; }
+    .input-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+    .input-label { display: block; font-size: 0.625rem; color: #7A6F5C; margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .time-pick { display: flex; align-items: center; gap: 0.25rem; }
+    .time-select { flex: 1; min-width: 0; padding: 0.625rem 0.375rem; text-align: center; text-align-last: center; font-family: 'JetBrains Mono', monospace; }
+    .time-sep { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: #7A6F5C; }
+    .activity-badge {
+      padding: 0.625rem 0.875rem;
+      border-radius: 10px;
+      font-size: 0.875rem; font-weight: 500;
+      text-align: center;
+    }
+    .entry-block {
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(224, 212, 190, 0.5);
+      border-radius: 10px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    .entry-block:last-of-type { margin-bottom: 0.5rem; }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .entry-label {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 0.75rem; color: #7A6F5C;
+    }
+    .entry-minutes {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem; font-weight: 600;
+    }
+    .add-entry-btn {
+      width: 100%;
+      padding: 0.625rem;
+      border-radius: 10px;
+      border: 1px dashed rgba(184, 132, 47, 0.4);
+      background: rgba(184, 132, 47, 0.05);
+      color: #8A6320;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.8125rem; font-weight: 500;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.375rem;
+      min-height: 38px; touch-action: manipulation;
+      transition: all 0.15s ease;
+    }
+    .add-entry-btn:active {
+      background: rgba(184, 132, 47, 0.12);
+      transform: scale(0.98);
+    }
+    .auto-entry {
+      padding: 0.625rem 0.875rem;
+      border-radius: 10px;
+      background: rgba(232, 149, 71, 0.12);
+      border: 1px solid rgba(232, 149, 71, 0.3);
+      color: #8A4F1F;
+      font-size: 0.8125rem; font-weight: 500;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 0.5rem;
+    }
+    .auto-entry-ferie {
+      background: rgba(91, 123, 91, 0.12);
+      border-color: rgba(91, 123, 91, 0.3);
+      color: #3D5A3D;
+    }
+    .auto-entry-value {
+      font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    }
+    .days-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer {
+      margin-top: 2rem; padding-top: 1.25rem;
+      text-align: center;
+      border-top: 1px solid rgba(224, 212, 190, 0.6);
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 0.8125rem; color: #7A6F5C;
+    }
+    .footer small { font-size: 0.6875rem; opacity: 0.8; }
+    .panel { margin-bottom: 1.25rem; padding: 1rem 1.125rem; }
+    .panel h3 { font-family: 'Fraunces', serif; font-size: 1.125rem; font-weight: 600; margin: 0 0 0.875rem; }
+    .panel-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .panel-label { display: block; font-size: 0.75rem; color: #7A6F5C; margin-bottom: 0.25rem; }
+    .icon { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .icon-sm { width: 14px; height: 14px; }
+    .actions-row { margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+    .templates-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .template-btn-content { display: flex; flex-direction: column; line-height: 1.3; }
+    .template-btn-content small { font-size: 0.75rem; opacity: 0.7; font-weight: 400; }
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(26, 22, 18, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex; align-items: flex-end; justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+    .modal {
+      background: #FBF5EC;
+      width: 100%; max-width: 480px; max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 20px 20px 0 0;
+      padding: 1.5rem 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+      animation: slideUp 0.25s ease;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+    }
+    @media (min-width: 640px) {
+      .modal-backdrop { align-items: center; }
+      .modal { border-radius: 20px; max-height: 80vh; }
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal h2 { font-family: 'Fraunces', serif; font-size: 1.625rem; font-weight: 600; margin: 0 0 0.25rem; }
+    .modal-subtitle { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.875rem; color: #7A6F5C; margin: 0 0 1.25rem; }
+    .period-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .period-option {
+      padding: 0.875rem 0.5rem;
+      border: 1px solid #E0D4BE;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.8125rem; font-weight: 500;
+      color: #1A1612;
+      cursor: pointer; transition: all 0.15s ease;
+      text-align: center; min-height: 56px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.125rem;
+    }
+    .period-option:active { transform: scale(0.97); }
+    .period-option-active { background: #1A1612; color: #FBF5EC; border-color: #1A1612; }
+    .period-option small { font-size: 0.6875rem; opacity: 0.7; }
+    .period-option-active small { opacity: 0.85; }
+    .modal-actions { display: flex; gap: 0.5rem; margin-top: 1.5rem; }
+    .modal-actions .btn { flex: 1; }
+    .preview-info {
+      padding: 0.875rem 1rem;
+      background: rgba(184, 132, 47, 0.08);
+      border-radius: 10px;
+      font-size: 0.8125rem; color: #7A6F5C;
+      margin-bottom: 0.5rem;
+    }
+    .preview-info strong { color: #1A1612; font-weight: 600; }
+    @media (max-width: 420px) {
+      .summary-value { font-size: 1.0625rem; }
+      .summary-label { font-size: 0.5625rem; }
+      h1 { font-size: 1.875rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app"></div>
+  <div id="modal-root"></div>
+
+  <script>
+    'use strict';
+
+    const DAYS = [
+      { key: 'lundi', label: 'Lundi' },
+      { key: 'mardi', label: 'Mardi' },
+      { key: 'mercredi', label: 'Mercredi' },
+      { key: 'jeudi', label: 'Jeudi' },
+      { key: 'vendredi', label: 'Vendredi' },
+      { key: 'samedi', label: 'Samedi' },
+      { key: 'dimanche', label: 'Dimanche' }
+    ];
+
+    const ACTIVITIES = {
+      au_travail:    { label: 'Au travail',       short: 'Travail',     color: '#1A1612', bg: '#FFFFFF', isWork: true  },
+      teletravail:   { label: 'Télétravail',      short: 'Télétravail', color: '#3D5A6C', bg: '#E8F0F4', isWork: true  },
+      conges:        { label: 'Congés payés',     short: 'Congés',      color: '#5B7B5B', bg: '#EAF1E5', isWork: false },
+      maladie:       { label: 'Maladie',          short: 'Maladie',     color: '#8B5A5A', bg: '#F4E8E8', isWork: false },
+      arret:         { label: 'Arrêt de travail', short: 'Arrêt',       color: '#8B5A5A', bg: '#F4E8E8', isWork: false },
+      recuperation:  { label: 'Récupération',     short: 'Récup',       color: '#6B5B7B', bg: '#EDE8F0', isWork: false }
+    };
+
+    // --- Date helpers ---
+    function getEasterDate(year) {
+      const a = year % 19, b = Math.floor(year / 100), c = year % 100;
+      const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+      const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+      const i = Math.floor(c / 4), k = c % 4;
+      const l = (32 + 2 * e + 2 * i - h - k) % 7;
+      const m = Math.floor((a + 11 * h + 22 * l) / 451);
+      const month = Math.floor((h + l - 7 * m + 114) / 31);
+      const day = ((h + l - 7 * m + 114) % 31) + 1;
+      return new Date(year, month - 1, day);
+    }
+    function dateKey(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    function getFrenchHolidays(year) {
+      const easter = getEasterDate(year);
+      const easterMonday = new Date(easter); easterMonday.setDate(easter.getDate() + 1);
+      const ascension = new Date(easter); ascension.setDate(easter.getDate() + 39);
+      // Note: Lundi de Pentecôte (Easter + 50) is intentionally excluded.
+      // It's the "Journée de Solidarité" → treated as a regular working day
+      // with no overtime, no bonus, no auto-credit.
+      return {
+        [year + '-01-01']: "Jour de l'An",
+        [year + '-05-01']: 'Fête du Travail',
+        [year + '-05-08']: 'Victoire 1945',
+        [year + '-07-14']: 'Fête Nationale',
+        [year + '-08-15']: 'Assomption',
+        [year + '-11-01']: 'Toussaint',
+        [year + '-11-11']: 'Armistice',
+        [year + '-12-25']: 'Noël',
+        [dateKey(easterMonday)]: 'Lundi de Pâques',
+        [dateKey(ascension)]: 'Ascension'
+      };
+    }
+    function getHolidayName(date) {
+      return getFrenchHolidays(date.getFullYear())[dateKey(date)] || null;
+    }
+    function getWeekNumber(date) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    }
+    function getMondayOfWeek(date) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+      const monday = new Date(d);
+      monday.setDate(diff);
+      monday.setHours(0, 0, 0, 0);
+      return monday;
+    }
+    function timeToMinutes(time) {
+      if (!time) return null;
+      const p = time.split(':').map(Number);
+      return p[0] * 60 + (p[1] || 0);
+    }
+    function formatHours(minutes) {
+      if (!minutes || isNaN(minutes)) return '0h 00';
+      const sign = minutes < 0 ? '-' : '';
+      const abs = Math.abs(minutes);
+      const h = Math.floor(abs / 60);
+      const m = Math.round(abs % 60);
+      return sign + h + 'h ' + String(m).padStart(2, '0');
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    function isoDate(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    function parseIsoDate(s) {
+      if (!s) return null;
+      const [y, m, d] = s.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+
+    // --- Entry helpers ---
+    // Supports shifts crossing midnight: if departure <= arrival, the shift is
+    // assumed to end the next day (e.g. 22:00 → 02:00 = 4h).
+    function calcEntryMinutes(entry) {
+      if (!entry) return 0;
+      const activity = entry.activity || 'au_travail';
+      if (!ACTIVITIES[activity] || !ACTIVITIES[activity].isWork) return 0;
+      if (!entry.arrival || !entry.departure) return 0;
+      const arrival = timeToMinutes(entry.arrival);
+      let departure = timeToMinutes(entry.departure);
+      const pause = parseInt(entry.pause) || 0;
+      // Crosses midnight: add a full day to departure
+      if (departure <= arrival) departure += 1440;
+      return Math.max(0, departure - arrival - pause);
+    }
+
+    // Calculate how many minutes of an entry fall within night hours (22h-6h).
+    // Night windows (across a 0..2880 range to handle midnight crossing):
+    //   - 22:00–06:00 of the first day  → [1320, 1800]  (i.e. 22h→24h + 0h→6h)
+    //   - 22:00–06:00 of the next day   → [2760, 3240]  (only relevant for crossing shifts)
+    // We normalize the shift to [arrival, departure] where departure may exceed 1440.
+    function calcEntryNightMinutes(entry) {
+      if (!entry) return 0;
+      const activity = entry.activity || 'au_travail';
+      if (!ACTIVITIES[activity] || !ACTIVITIES[activity].isWork) return 0;
+      if (!entry.arrival || !entry.departure) return 0;
+      let arrival = timeToMinutes(entry.arrival);
+      let departure = timeToMinutes(entry.departure);
+      if (departure <= arrival) departure += 1440; // crosses midnight
+
+      function overlap(start, end, winStart, winEnd) {
+        const s = Math.max(start, winStart);
+        const e = Math.min(end, winEnd);
+        return Math.max(0, e - s);
+      }
+      // Night zones expressed on the extended timeline:
+      //  day 0: 00:00–06:00 → [0, 360], 22:00–24:00 → [1320, 1440]
+      //  day 1: 00:00–06:00 → [1440, 1800], 22:00–24:00 → [2760, 2880]
+      let night = 0;
+      night += overlap(arrival, departure, 0, 360);
+      night += overlap(arrival, departure, 1320, 1800); // 22h day0 → 6h day1 (contiguous)
+      night += overlap(arrival, departure, 2760, 2880); // 22h day1 (rare, very long shift)
+      return night;
+    }
+
+    function calcDayNightMinutes(day) {
+      return getDayEntries(day).reduce((sum, e) => sum + calcEntryNightMinutes(e), 0);
+    }
+
+    function getDayEntries(day) {
+      if (!day) return [];
+      if (Array.isArray(day)) return day;
+      if (typeof day === 'object') return [day]; // backward compat
+      return [];
+    }
+
+    function calcDayWorkedMinutes(day) {
+      return getDayEntries(day).reduce((sum, e) => sum + calcEntryMinutes(e), 0);
+    }
+
+    function hasAbsence(day) {
+      return getDayEntries(day).some(e => e.activity && ACTIVITIES[e.activity] && !ACTIVITIES[e.activity].isWork);
+    }
+
+    function dailyContractualMinutes(settings) {
+      const weekly = parseFloat(settings.contractuel) || 35;
+      return Math.round((weekly / 5) * 60); // 5 working days assumption
+    }
+
+    // Returns how many working days (Mon-Fri) of a given week are within the contract period.
+    // monday: Date object for the Monday of the week
+    // Returns a number 0..5
+    function contractualWorkingDaysInWeek(monday, contractStartIso) {
+      if (!contractStartIso) return 5;
+      const contractStart = parseIsoDate(contractStartIso);
+      if (!contractStart) return 5;
+      let count = 0;
+      for (let i = 0; i < 5; i++) {
+        const d = new Date(monday); d.setDate(monday.getDate() + i);
+        d.setHours(0, 0, 0, 0);
+        if (d >= contractStart) count++;
+      }
+      return count;
+    }
+
+    // Weekly threshold in minutes for HS/récup calculation
+    // = (weekly contracted hours / 5) × number of contractual working days this week
+    function weeklyThresholdMin(monday, settings) {
+      const dailyMin = dailyContractualMinutes(settings);
+      const days = contractualWorkingDaysInWeek(monday, settings.contractStart);
+      return dailyMin * days;
+    }
+
+    // True if any part of the week is within the contract period
+    function isWeekInContract(monday, settings) {
+      if (!settings.contractStart) return true;
+      const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
+      const contractStart = parseIsoDate(settings.contractStart);
+      if (!contractStart) return true;
+      return sunday >= contractStart;
+    }
+
+    // --- State ---
+    const state = {
+      currentDate: new Date(),
+      weekData: {},
+      settings: { taux: '', contractuel: 35, contractStart: '2026-05-13', cotisations: 23 },
+      showSettings: false,
+      showTemplates: false,
+      showExport: false,
+      exportType: 'week',
+      exportStart: isoDate(getMondayOfWeek(new Date())),
+      exportEnd: (() => { const d = getMondayOfWeek(new Date()); d.setDate(d.getDate() + 6); return isoDate(d); })()
+    };
+
+    function getWeekKey(date) {
+      const monday = getMondayOfWeek(date || state.currentDate);
+      return 'week-' + monday.getFullYear() + '-W' + String(getWeekNumber(monday)).padStart(2, '0');
+    }
+    function loadWeek() {
+      try {
+        const data = localStorage.getItem(getWeekKey());
+        const raw = data ? JSON.parse(data) : {};
+        // Migrate single-object format to array
+        const migrated = {};
+        Object.keys(raw).forEach(k => {
+          if (Array.isArray(raw[k])) migrated[k] = raw[k];
+          else if (raw[k] && typeof raw[k] === 'object') migrated[k] = [raw[k]];
+        });
+        state.weekData = migrated;
+      } catch (e) { state.weekData = {}; }
+    }
+    function saveWeek() {
+      try { localStorage.setItem(getWeekKey(), JSON.stringify(state.weekData)); } catch (e) {}
+    }
+    function loadSettings() {
+      try {
+        const data = localStorage.getItem('settings');
+        if (data) {
+          const p = JSON.parse(data);
+          state.settings = {
+            taux: p.taux !== undefined ? p.taux : '',
+            contractuel: p.contractuel || 35,
+            contractStart: p.contractStart || '2026-05-13',
+            cotisations: p.cotisations !== undefined ? p.cotisations : 23
+          };
+        }
+      } catch (e) {}
+    }
+    function saveSettings() {
+      try { localStorage.setItem('settings', JSON.stringify(state.settings)); } catch (e) {}
+    }
+
+    // --- Paid HS storage ---
+    // Structure: { "YYYY-MM": { hs25Min: Number, hs50Min: Number } }
+    function loadPaidHS() {
+      try {
+        const data = localStorage.getItem('paidHS');
+        state.paidHS = data ? JSON.parse(data) : {};
+      } catch (e) { state.paidHS = {}; }
+    }
+    function savePaidHS() {
+      try { localStorage.setItem('paidHS', JSON.stringify(state.paidHS || {})); } catch (e) {}
+    }
+    function setPaidHSForMonth(monthKey, hs25Min, hs50Min) {
+      if (!state.paidHS) state.paidHS = {};
+      if ((!hs25Min || hs25Min === 0) && (!hs50Min || hs50Min === 0)) {
+        delete state.paidHS[monthKey];
+      } else {
+        state.paidHS[monthKey] = {
+          hs25Min: hs25Min || 0,
+          hs50Min: hs50Min || 0
+        };
+      }
+      savePaidHS();
+      render();
+    }
+    function getPaidHSForMonth(monthKey) {
+      if (!state.paidHS) return { hs25Min: 0, hs50Min: 0 };
+      return state.paidHS[monthKey] || { hs25Min: 0, hs50Min: 0 };
+    }
+
+    // Update paid HS for a month from form inputs (hours format like "5.5" or "5h30")
+    function updatePaidHSField(monthKey, field, value) {
+      const minutes = parseHoursInput(value);
+      const current = getPaidHSForMonth(monthKey);
+      const updated = { ...current };
+      updated[field] = minutes;
+      setPaidHSForMonth(monthKey, updated.hs25Min, updated.hs50Min);
+    }
+    // Parse input "5", "5.5", "5h30" → minutes
+    function parseHoursInput(value) {
+      if (!value || value.trim() === '') return 0;
+      const v = String(value).trim().toLowerCase();
+      // Format "Xh" or "XhYY"
+      const hMatch = v.match(/^(\d+)\s*h\s*(\d{0,2})$/);
+      if (hMatch) {
+        const h = parseInt(hMatch[1]) || 0;
+        const m = parseInt(hMatch[2] || '0') || 0;
+        return h * 60 + m;
+      }
+      // Plain number (hours, decimal allowed)
+      const n = parseFloat(v.replace(',', '.'));
+      if (isNaN(n)) return 0;
+      return Math.round(n * 60);
+    }
+
+    // --- Actions ---
+    function ensureDayArray(dayKey) {
+      if (!Array.isArray(state.weekData[dayKey])) {
+        const existing = state.weekData[dayKey];
+        state.weekData[dayKey] = existing && typeof existing === 'object' ? [existing] : [];
+      }
+    }
+
+    function addEntry(dayKey) {
+      ensureDayArray(dayKey);
+      state.weekData[dayKey].push({ activity: 'au_travail' });
+      saveWeek(); render();
+    }
+
+    function removeEntry(dayKey, idx) {
+      ensureDayArray(dayKey);
+      state.weekData[dayKey].splice(idx, 1);
+      if (state.weekData[dayKey].length === 0) delete state.weekData[dayKey];
+      saveWeek(); render();
+    }
+
+    let _updateDebounce = null;
+    function updateEntry(dayKey, idx, field, value) {
+      ensureDayArray(dayKey);
+      if (!state.weekData[dayKey][idx]) state.weekData[dayKey][idx] = {};
+      state.weekData[dayKey][idx][field] = value;
+      saveWeek();
+      // For time fields, DON'T re-render: iOS would close the picker mid-selection.
+      // Just update the totals/badges via refreshDisplays.
+      // For other fields (pause, etc.), same idea — refreshDisplays is enough.
+      // Use a debounce so rapid wheel rolls don't fight with each other.
+      if (_updateDebounce) clearTimeout(_updateDebounce);
+      _updateDebounce = setTimeout(() => { refreshDisplays(); }, 50);
+    }
+
+    function refreshDisplays() {
+      try {
+        const calc = getCalcForWeek(state.currentDate);
+        // Day totals + recup badges (these have ids set in renderDayCard)
+        DAYS.forEach((d, i) => {
+          const entry = calc.entries[i];
+          const total = (entry.workedMin || 0) + (entry.autoFerieMin || 0);
+          const totalEl = document.getElementById('day-total-' + d.key);
+          if (totalEl) {
+            totalEl.textContent = formatHours(total);
+            totalEl.classList.toggle('day-total-empty', total === 0);
+          }
+          const recupEl = document.getElementById('day-recup-' + d.key);
+          if (recupEl) {
+            if (entry.recupMin > 0) {
+              recupEl.style.display = '';
+              recupEl.textContent = '↻ À récupérer : ' + formatHours(entry.recupMin);
+            } else {
+              recupEl.style.display = 'none';
+            }
+          }
+        });
+        // Mark the summary as stale; user will see updated values on next non-time interaction
+        const stale = document.getElementById('summary-stale');
+        if (stale) stale.style.display = '';
+      } catch (e) {}
+    }
+
+    function setEntryActivity(dayKey, idx, activity) {
+      ensureDayArray(dayKey);
+      const existing = state.weekData[dayKey][idx] || {};
+      const isWork = ACTIVITIES[activity] && ACTIVITIES[activity].isWork;
+      // If switching to non-work, clear time fields
+      state.weekData[dayKey][idx] = isWork
+        ? Object.assign({}, existing, { activity })
+        : { activity };
+      saveWeek(); render();
+    }
+
+    function clearDay(dayKey) {
+      delete state.weekData[dayKey];
+      saveWeek(); render();
+    }
+
+    function loadTemplate(name) {
+      const tpl = {};
+      let arrival, departure;
+      if (name === 'conditionnement') { arrival = '09:00'; departure = '16:00'; }
+      else if (name === 'brassage') { arrival = '08:00'; departure = '15:00'; }
+      ['lundi','mardi','mercredi','jeudi','vendredi'].forEach(k => {
+        tpl[k] = [{ activity: 'au_travail', arrival, departure, pause: '0' }];
+      });
+      state.weekData = tpl;
+      state.showTemplates = false;
+      saveWeek(); render();
+    }
+
+    function goToPrevWeek() { const d = new Date(state.currentDate); d.setDate(d.getDate() - 7); state.currentDate = d; loadWeek(); render(); }
+    function goToNextWeek() { const d = new Date(state.currentDate); d.setDate(d.getDate() + 7); state.currentDate = d; loadWeek(); render(); }
+    function goToToday() { state.currentDate = new Date(); loadWeek(); render(); }
+    function toggleSettings() { state.showSettings = !state.showSettings; render(); }
+    function toggleTemplates() { state.showTemplates = !state.showTemplates; render(); }
+
+    function openExport() {
+      const monday = getMondayOfWeek(state.currentDate);
+      const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
+      state.exportStart = isoDate(monday);
+      state.exportEnd = isoDate(sunday);
+      state.exportType = 'week';
+      state.showExport = true;
+      render();
+    }
+    function closeExport() { state.showExport = false; render(); }
+    function setExportType(type) {
+      state.exportType = type;
+      const now = new Date(state.currentDate);
+      if (type === 'week') {
+        const m = getMondayOfWeek(now);
+        const s = new Date(m); s.setDate(m.getDate() + 6);
+        state.exportStart = isoDate(m); state.exportEnd = isoDate(s);
+      } else if (type === 'month') {
+        const first = new Date(now.getFullYear(), now.getMonth(), 1);
+        const last = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        state.exportStart = isoDate(first); state.exportEnd = isoDate(last);
+      }
+      render();
+    }
+    function setExportDate(field, value) { state[field] = value; render(); }
+    function updateSetting(field, value) { state.settings[field] = value; saveSettings(); render(); }
+
+    // --- Day-level metadata (auto férié, etc.) ---
+    // NOTE: HS and à-récupérer are no longer computed per day. They are derived
+    // at the week level by comparing the total worked hours of the week to the
+    // contractual weekly threshold (35h by default, prorated for the first
+    // contract week).
+    function getDayMeta(day, date, dayIndex, settings) {
+      const dailyMin = dailyContractualMinutes(settings); // e.g. 420 for 7h
+      const isWorkingDay = dayIndex < 5; // Mon-Fri
+      const isSunday = dayIndex === 6;
+      const ferie = getHolidayName(date);
+      const entries = getDayEntries(day);
+      const hasAny = entries.length > 0;
+      const workedMin = calcDayWorkedMinutes(day);
+      const nightMin = calcDayNightMinutes(day);
+      const absencePresent = hasAbsence(day);
+
+      const meta = {
+        workedMin,
+        nightMin,
+        dailyMin,
+        isWorkingDay,
+        isSunday,
+        ferie,
+        absencePresent,
+        // Férié non-travaillé auto: counts as dailyMin normal hours, fills the day
+        ferieAutoMin: 0,
+        // Worked on férié OR Sunday (for +100% bonus calc)
+        ferieWorkedMin: 0,
+        // Sunday worked hours specifically (for display label)
+        sundayWorkedMin: 0
+      };
+
+      if (ferie && isWorkingDay && !hasAny) {
+        // Empty férié on working day → auto 7h normal
+        meta.ferieAutoMin = dailyMin;
+      } else if (workedMin > 0 && ferie) {
+        // Worked on férié → bonus on worked hours
+        meta.ferieWorkedMin = workedMin;
+      } else if (workedMin > 0 && isSunday) {
+        // Worked on Sunday (not a holiday) → +100% bonus, same treatment as holiday
+        meta.ferieWorkedMin = workedMin;
+        meta.sundayWorkedMin = workedMin;
+      }
+
+      return meta;
+    }
+
+    // --- Récup ledger (monthly compensation) ---
+    // 1h HS25 worked recovers 1h15 of récup debt (factor 1.25)
+    // 1h HS50 worked recovers 1h30 of récup debt (factor 1.5)
+    // HS25 is used first to repay debt (so HS50 stays "paid" if possible)
+    // Compensation happens within a calendar month: any HS in the month can repay any récup in the same month, regardless of week order.
+
+    function getAllStoredWeekKeys() {
+      const keys = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && /^week-\d{4}-W\d{2}$/.test(k)) keys.push(k);
+      }
+      return keys.sort();
+    }
+
+    // Compute raw weekly stats: walks through all stored weeks, computes per-week
+    // HS25, HS50, and recuperation (all calculated at the WEEK level, not per day).
+    // Returns:
+    //   - perDay: Map(isoDate -> {workedMin, weekKey, date, inContract})
+    //   - perWeek: Map(weekKey -> {monday, hs25Min, hs50Min, recupMin, workedMin, inContract})
+    //   - perMonth: Map('YYYY-MM' -> {hs25Min, hs50Min, recupMin})
+    // Note: perMonth aggregates by attributing each week's HS/récup to the MONTH OF ITS MONDAY
+    // (or split proportionally across days for weeks straddling two months).
+    function computeAllDailyStats() {
+      const perDay = new Map();
+      const perWeek = new Map();
+      const perMonth = new Map();
+      const weekKeys = getAllStoredWeekKeys();
+      const contractStart = state.settings.contractStart ? parseIsoDate(state.settings.contractStart) : null;
+
+      for (const wKey of weekKeys) {
+        let weekData = {};
+        try {
+          const raw = JSON.parse(localStorage.getItem(wKey) || '{}');
+          Object.keys(raw).forEach(k => {
+            if (Array.isArray(raw[k])) weekData[k] = raw[k];
+            else if (raw[k] && typeof raw[k] === 'object') weekData[k] = [raw[k]];
+          });
+        } catch (e) { weekData = {}; }
+
+        const match = wKey.match(/^week-(\d{4})-W(\d{2})$/);
+        if (!match) continue;
+        const year = parseInt(match[1]);
+        const week = parseInt(match[2]);
+        const jan4 = new Date(year, 0, 4);
+        const jan4Day = jan4.getDay() || 7;
+        const week1Monday = new Date(jan4);
+        week1Monday.setDate(jan4.getDate() - jan4Day + 1);
+        const monday = new Date(week1Monday);
+        monday.setDate(week1Monday.getDate() + (week - 1) * 7);
+        monday.setHours(0, 0, 0, 0);
+
+        // If the entire week is before contract start, skip entirely
+        if (!isWeekInContract(monday, state.settings)) continue;
+
+        // Walk the 7 days, tracking which are in contract and total "covered" hours
+        // Covered hours = worked + auto-férié + absence (congé/maladie/arrêt = journée couverte)
+        let weekWorkedMin = 0;       // strict worked hours (for display only)
+        let weekCoveredMin = 0;      // worked + ferie auto + full-day absence (for HS/récup calc)
+        const dayInfos = [];
+        for (let i = 0; i < 7; i++) {
+          const date = new Date(monday); date.setDate(monday.getDate() + i);
+          date.setHours(0, 0, 0, 0);
+          const meta = getDayMeta(weekData[DAYS[i].key], date, i, state.settings);
+          const inContract = !contractStart || date >= contractStart;
+          const countedWorked = inContract ? meta.workedMin : 0;
+          // Auto férié credit: 7h normal added to weekly total
+          const countedFerieAuto = inContract ? meta.ferieAutoMin : 0;
+          // Absence: if a working day has an absence entry and no work, day is "covered" by 7h
+          const isWorkingDay = meta.isWorkingDay;
+          let countedAbsence = 0;
+          if (inContract && isWorkingDay && meta.absencePresent && meta.workedMin === 0 && !meta.ferie) {
+            countedAbsence = meta.dailyMin;
+          }
+          weekWorkedMin += countedWorked;
+          weekCoveredMin += countedWorked + countedFerieAuto + countedAbsence;
+          dayInfos.push({ date, meta, inContract });
+          const iso = isoDate(date);
+          perDay.set(iso, { workedMin: meta.workedMin, weekKey: wKey, date, inContract });
+        }
+
+        // Weekly threshold (prorated for partial contract week)
+        const thresholdMin = weeklyThresholdMin(monday, state.settings);
+
+        // HS / récup at week level, based on COVERED hours (so férié & absences don't trigger récup)
+        const delta = weekCoveredMin - thresholdMin;
+        let weekHS25Min = 0, weekHS50Min = 0, weekRecupMin = 0;
+        if (delta > 0) {
+          // Over threshold → HS. The excess can only come from worked hours,
+          // since férié/absence credits only fill up to the daily target.
+          weekHS25Min = Math.min(delta, 8 * 60);
+          weekHS50Min = Math.max(0, delta - 8 * 60);
+        } else if (delta < 0) {
+          // Under threshold → à récupérer
+          weekRecupMin = -delta;
+        }
+
+        perWeek.set(wKey, {
+          monday,
+          thresholdMin,
+          workedMin: weekWorkedMin,
+          hs25Min: weekHS25Min,
+          hs50Min: weekHS50Min,
+          recupMin: weekRecupMin
+        });
+
+        // Attribute to month(s): use the MONDAY's month as primary attribution
+        // (Simpler and matches the way users see their payslip period.)
+        const monthKey = monday.getFullYear() + '-' + String(monday.getMonth() + 1).padStart(2, '0');
+        if (!perMonth.has(monthKey)) perMonth.set(monthKey, { hs25Min: 0, hs50Min: 0, recupMin: 0 });
+        const m = perMonth.get(monthKey);
+        m.hs25Min += weekHS25Min;
+        m.hs50Min += weekHS50Min;
+        m.recupMin += weekRecupMin;
+      }
+      return { perDay, perWeek, perMonth };
+    }
+
+    // Apply récup compensation against HS, within a single bucket (a month).
+    // No carryover between months: each month settles its own balance.
+    function applyMonthlyRecup(hs25Min, hs50Min, recupMin) {
+      let debt = recupMin || 0;
+      let paidHS25 = hs25Min;
+      let paidHS50 = hs50Min;
+      let consumedHS25 = 0, consumedHS50 = 0;
+      if (debt > 0 && paidHS25 > 0) {
+        const credit = paidHS25 * 1.25;
+        if (credit >= debt) {
+          const used = debt / 1.25;
+          consumedHS25 = used;
+          paidHS25 -= used;
+          debt = 0;
+        } else {
+          consumedHS25 = paidHS25;
+          debt -= credit;
+          paidHS25 = 0;
+        }
+      }
+      if (debt > 0 && paidHS50 > 0) {
+        const credit = paidHS50 * 1.5;
+        if (credit >= debt) {
+          const used = debt / 1.5;
+          consumedHS50 = used;
+          paidHS50 -= used;
+          debt = 0;
+        } else {
+          consumedHS50 = paidHS50;
+          debt -= credit;
+          paidHS50 = 0;
+        }
+      }
+      return { paidHS25, paidHS50, consumedHS25, consumedHS50, outgoingDebt: debt };
+    }
+
+    // Compute the resolved state of all months: for each month, returns
+    // the netHS25, netHS50, debt remaining, consumed HS, paidHS, owedHS (carried over)
+    function resolveAllMonths() {
+      const { perDay, perWeek, perMonth } = computeAllDailyStats();
+      const monthResults = new Map();
+
+      // Group weeks by month
+      const weeksByMonth = new Map();
+      perWeek.forEach((weekStats, wKey) => {
+        const monthKey = weekStats.monday.getFullYear() + '-' + String(weekStats.monday.getMonth() + 1).padStart(2, '0');
+        if (!weeksByMonth.has(monthKey)) weeksByMonth.set(monthKey, []);
+        weeksByMonth.get(monthKey).push(wKey);
+      });
+      weeksByMonth.forEach((wKeys) => {
+        wKeys.sort((a, b) => perWeek.get(a).monday - perWeek.get(b).monday);
+      });
+
+      const weekNetHS = new Map();
+
+      // Process months in chronological order to propagate unpaid HS to next month
+      const sortedMonthKeys = Array.from(perMonth.keys()).sort();
+      // Also include any months that have paid HS recorded but no work data, to keep them visible
+      if (state.paidHS) {
+        Object.keys(state.paidHS).forEach(k => {
+          if (!sortedMonthKeys.includes(k)) sortedMonthKeys.push(k);
+        });
+        sortedMonthKeys.sort();
+      }
+
+      let carryHS25 = 0, carryHS50 = 0; // owed HS carried over from previous month
+
+      for (const monthKey of sortedMonthKeys) {
+        const stats = perMonth.get(monthKey) || { hs25Min: 0, hs50Min: 0, recupMin: 0 };
+
+        // Add carryover from previous month
+        const totalHS25BeforePay = stats.hs25Min + carryHS25;
+        const totalHS50BeforePay = stats.hs50Min + carryHS50;
+
+        // First, récup consumes HS (HS25 prioritaire)
+        const res = applyMonthlyRecup(totalHS25BeforePay, totalHS50BeforePay, stats.recupMin);
+        // res.paidHS25/50 = HS remaining after récup compensation (these are net HS, before paid HS deduction)
+
+        // Then, user-declared paid HS are deducted from those net HS
+        const paid = getPaidHSForMonth(monthKey);
+        const paidHS25 = Math.min(paid.hs25Min, res.paidHS25);
+        const paidHS50 = Math.min(paid.hs50Min, res.paidHS50);
+
+        // Unpaid HS = what remains after paying → carried to next month
+        const unpaidHS25 = res.paidHS25 - paidHS25;
+        const unpaidHS50 = res.paidHS50 - paidHS50;
+
+        monthResults.set(monthKey, {
+          // Original month's HS (no carryover)
+          hs25Min: stats.hs25Min,
+          hs50Min: stats.hs50Min,
+          recupMin: stats.recupMin,
+          // Carryover from previous month
+          carryInHS25Min: carryHS25,
+          carryInHS50Min: carryHS50,
+          // Total before paid (used for recup compensation)
+          totalHS25BeforePay,
+          totalHS50BeforePay,
+          // Net HS after récup compensation
+          netHS25Min: res.paidHS25,
+          netHS50Min: res.paidHS50,
+          consumedHS25Min: res.consumedHS25,
+          consumedHS50Min: res.consumedHS50,
+          remainingDebtMin: res.outgoingDebt,
+          // Paid HS (declared by user)
+          paidHS25Min: paidHS25,
+          paidHS50Min: paidHS50,
+          // Unpaid HS (carried to next month)
+          carryOutHS25Min: unpaidHS25,
+          carryOutHS50Min: unpaidHS50
+        });
+
+        // Attribute consumed HS25 / HS50 to weeks of this month chronologically
+        // (consumption comes from the month's own HS first, then carry; but we only track
+        // attribution to weeks of the current month for display purposes)
+        const wKeys = weeksByMonth.get(monthKey) || [];
+        // Consumed from this month's brut HS = total consumed - consumed from carryover
+        // Carry HS are consumed first (FIFO: oldest HS pay récup first)
+        let consumedFromCarry25 = Math.min(res.consumedHS25, carryHS25);
+        let consumedFromMonth25 = res.consumedHS25 - consumedFromCarry25;
+        let consumedFromCarry50 = Math.min(res.consumedHS50, carryHS50);
+        let consumedFromMonth50 = res.consumedHS50 - consumedFromCarry50;
+        let remainingHS25ToConsume = consumedFromMonth25;
+        let remainingHS50ToConsume = consumedFromMonth50;
+        for (const wKey of wKeys) {
+          const ws = perWeek.get(wKey);
+          const wConsumedHS25 = Math.min(remainingHS25ToConsume, ws.hs25Min);
+          remainingHS25ToConsume -= wConsumedHS25;
+          const wConsumedHS50 = Math.min(remainingHS50ToConsume, ws.hs50Min);
+          remainingHS50ToConsume -= wConsumedHS50;
+          weekNetHS.set(wKey, {
+            netHS25: ws.hs25Min - wConsumedHS25,
+            netHS50: ws.hs50Min - wConsumedHS50,
+            consumedHS25: wConsumedHS25,
+            consumedHS50: wConsumedHS50
+          });
+        }
+
+        // Propagate unpaid HS to next month
+        carryHS25 = unpaidHS25;
+        carryHS50 = unpaidHS50;
+      }
+
+      return { perDay, perWeek, perMonth, monthResults, weekNetHS };
+    }
+
+    // Compute cumulative ledger up to and including a given date
+    function getRecupLedgerThroughDate(throughDate) {
+      const { monthResults } = resolveAllMonths();
+      const throughMonthKey = throughDate.getFullYear() + '-' + String(throughDate.getMonth() + 1).padStart(2, '0');
+      let totalCreatedMin = 0;
+      let totalRecoveredMin = 0;
+      let totalHS25ConsumedMin = 0;
+      let totalHS50ConsumedMin = 0;
+      let totalRemainingMin = 0;
+      // Sort month keys
+      const sortedKeys = Array.from(monthResults.keys()).sort();
+      for (const mKey of sortedKeys) {
+        if (mKey > throughMonthKey) break;
+        const m = monthResults.get(mKey);
+        totalCreatedMin += m.recupMin;
+        totalRecoveredMin += m.consumedHS25Min * 1.25 + m.consumedHS50Min * 1.5;
+        totalHS25ConsumedMin += m.consumedHS25Min;
+        totalHS50ConsumedMin += m.consumedHS50Min;
+        totalRemainingMin += m.remainingDebtMin;
+      }
+      return { totalCreatedMin, totalRecoveredMin, debt: totalRemainingMin, totalHS25ConsumedMin, totalHS50ConsumedMin };
+    }
+
+    // For weekly view: gets this week's brut HS/récup from perWeek,
+    // then uses the chronological per-week attribution of HS consumption.
+    function getWeekResolvedStats(monday) {
+      const wKey = 'week-' + monday.getFullYear() + '-W' + String(getWeekNumber(monday)).padStart(2, '0');
+      const { perWeek, weekNetHS } = resolveAllMonths();
+
+      const weekStats = perWeek.get(wKey);
+      if (!weekStats) {
+        return { hs25BrutMin: 0, hs50BrutMin: 0, netHS25Min: 0, netHS50Min: 0, recupMin: 0, thresholdMin: weeklyThresholdMin(monday, state.settings) };
+      }
+
+      const wNet = weekNetHS.get(wKey) || { netHS25: weekStats.hs25Min, netHS50: weekStats.hs50Min };
+
+      return {
+        hs25BrutMin: weekStats.hs25Min,
+        hs50BrutMin: weekStats.hs50Min,
+        netHS25Min: wNet.netHS25,
+        netHS50Min: wNet.netHS50,
+        recupMin: weekStats.recupMin,
+        thresholdMin: weekStats.thresholdMin
+      };
+    }
+
+    // Get full month resolution for a given date
+    function getMonthResolution(date) {
+      const monthKey = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
+      const { monthResults } = resolveAllMonths();
+      return monthResults.get(monthKey) || null;
+    }
+
+    // --- Calculations ---
+    function getCurrentCalc() {
+      const monday = getMondayOfWeek(state.currentDate);
+      const settings = state.settings;
+      let workedMin = 0, ferieWorkedMin = 0, ferieAutoMin = 0, nightMin = 0, sundayWorkedMin = 0;
+
+      DAYS.forEach((d, i) => {
+        const date = new Date(monday); date.setDate(monday.getDate() + i);
+        const meta = getDayMeta(state.weekData[d.key], date, i, settings);
+        workedMin += meta.workedMin;
+        ferieWorkedMin += meta.ferieWorkedMin;
+        ferieAutoMin += meta.ferieAutoMin;
+        nightMin += meta.nightMin || 0;
+        sundayWorkedMin += meta.sundayWorkedMin || 0;
+      });
+
+      // Get week-level HS/récup and net (after monthly compensation)
+      const weekResolved = getWeekResolvedStats(monday);
+      const hs25Raw = weekResolved.hs25BrutMin / 60;
+      const hs50Raw = weekResolved.hs50BrutMin / 60;
+      const recuperationMin = weekResolved.recupMin;
+      const thresholdMin = weekResolved.thresholdMin;
+      const netHS25 = weekResolved.netHS25Min / 60;
+      const netHS50 = weekResolved.netHS50Min / 60;
+
+      // Hours normales = worked up to the threshold (or worked if less than threshold)
+      const heuresNormalesMin = Math.min(workedMin, thresholdMin);
+      const heuresNormales = heuresNormalesMin / 60;
+      const totalHours = workedMin / 60;
+      const inContract = isWeekInContract(monday, settings);
+
+      const taux = parseFloat(settings.taux) || 0;
+      const ferieAutoH = ferieAutoMin / 60;
+      const ferieWorkedH = ferieWorkedMin / 60;
+      const nightH = nightMin / 60;
+
+      // Salary based on NET HS (HS that paid récup are consumed, not paid in salary)
+      const salaireBase = (heuresNormales + ferieAutoH) * taux;
+      const salaireHS25 = netHS25 * taux * 1.25;
+      const salaireHS50 = netHS50 * taux * 1.5;
+      const bonusFerie = ferieWorkedH * taux; // +100% on holiday/Sunday worked hours
+      const bonusNuit = nightH * taux * 0.20;  // +20% night premium (22h-6h)
+      const salaireTotal = salaireBase + salaireHS25 + salaireHS50 + bonusFerie + bonusNuit;
+      const majoration = netHS25 * taux * 0.25 + netHS50 * taux * 0.5 + bonusFerie + bonusNuit;
+
+      // Cumulative ledger through this week
+      const sundayOfWeek = new Date(monday); sundayOfWeek.setDate(monday.getDate() + 6);
+      const ledger = getRecupLedgerThroughDate(sundayOfWeek);
+
+      // Month info: for the month containing currentDate
+      const monthRes = getMonthResolution(state.currentDate);
+      const monthInfo = monthRes ? {
+        hs25Min: monthRes.hs25Min,
+        hs50Min: monthRes.hs50Min,
+        carryInHS25Min: monthRes.carryInHS25Min,
+        carryInHS50Min: monthRes.carryInHS50Min,
+        netHS25Min: monthRes.netHS25Min,
+        netHS50Min: monthRes.netHS50Min,
+        paidHS25Min: monthRes.paidHS25Min,
+        paidHS50Min: monthRes.paidHS50Min,
+        carryOutHS25Min: monthRes.carryOutHS25Min,
+        carryOutHS50Min: monthRes.carryOutHS50Min
+      } : null;
+
+      return {
+        workedMin, ferieWorkedMin, ferieAutoMin, recuperationMin,
+        nightMin, nightH, sundayWorkedMin, bonusNuit,
+        totalHours, ferieAutoH, ferieWorkedH,
+        recupH: recuperationMin / 60,
+        ledgerCreatedMin: ledger.totalCreatedMin,
+        ledgerRecoveredMin: ledger.totalRecoveredMin,
+        ledgerRemainingMin: ledger.debt,
+        ledgerHS25ConsumedMin: ledger.totalHS25ConsumedMin,
+        ledgerHS50ConsumedMin: ledger.totalHS50ConsumedMin,
+        heuresNormales,
+        hs25Raw, hs50Raw,
+        netHS25, netHS50,
+        thresholdMin, inContract,
+        monthInfo,
+        taux, salaireBase, salaireHS25, salaireHS50, bonusFerie, salaireTotal, majoration
+      };
+    }
+
+    // For export: aggregate over a date range
+    function calcRange(startDate, endDate) {
+      const seuil = parseFloat(state.settings.contractuel) || 35;
+      const taux = parseFloat(state.settings.taux) || 0;
+      const loadedWeeks = {};
+      const entries = [];
+      const weeklyTotals = {}; // wKey -> {worked, ferieWorked, ferieAuto, recuperation}
+      const absencesCount = { conges: 0, maladie: 0, arret: 0, recuperation: 0 };
+
+      const cur = new Date(startDate); cur.setHours(0,0,0,0);
+      const end = new Date(endDate); end.setHours(23,59,59,999);
+
+      while (cur <= end) {
+        const monday = getMondayOfWeek(cur);
+        const wKey = 'week-' + monday.getFullYear() + '-W' + String(getWeekNumber(monday)).padStart(2, '0');
+        if (!loadedWeeks[wKey]) {
+          try {
+            const raw = JSON.parse(localStorage.getItem(wKey) || '{}');
+            const migrated = {};
+            Object.keys(raw).forEach(k => {
+              if (Array.isArray(raw[k])) migrated[k] = raw[k];
+              else if (raw[k] && typeof raw[k] === 'object') migrated[k] = [raw[k]];
+            });
+            loadedWeeks[wKey] = migrated;
+          } catch (e) { loadedWeeks[wKey] = {}; }
+        }
+        const dayIndex = (cur.getDay() + 6) % 7;
+        const dayKey = DAYS[dayIndex].key;
+        const dayData = loadedWeeks[wKey][dayKey];
+        const meta = getDayMeta(dayData, cur, dayIndex, state.settings);
+        const dayEntries = getDayEntries(dayData);
+
+        // Count absences (per absence entry seen)
+        dayEntries.forEach(e => {
+          if (e.activity && !ACTIVITIES[e.activity].isWork) {
+            absencesCount[e.activity] = (absencesCount[e.activity] || 0) + 1;
+          }
+        });
+
+        entries.push({
+          date: new Date(cur),
+          dayName: DAYS[dayIndex].label,
+          entries: dayEntries,
+          meta
+        });
+
+        if (!weeklyTotals[wKey]) weeklyTotals[wKey] = { worked: 0, ferieWorked: 0, ferieAuto: 0, night: 0, sundayWorked: 0 };
+        weeklyTotals[wKey].worked += meta.workedMin;
+        weeklyTotals[wKey].ferieWorked += meta.ferieWorkedMin;
+        weeklyTotals[wKey].ferieAuto += meta.ferieAutoMin;
+        weeklyTotals[wKey].night += meta.nightMin || 0;
+        weeklyTotals[wKey].sundayWorked += meta.sundayWorkedMin || 0;
+
+        cur.setDate(cur.getDate() + 1);
+      }
+
+      // Process: use weekly + monthly resolution with chronological per-week attribution
+      const { perWeek, monthResults, weekNetHS } = resolveAllMonths();
+
+      let totalWorked = 0, totalFerieWorked = 0, totalFerieAuto = 0, totalRecuperation = 0;
+      let totalNormal = 0, totalHS25Brut = 0, totalHS50Brut = 0;
+      let totalPaidHS25 = 0, totalPaidHS50 = 0;
+      let totalNight = 0, totalSundayWorked = 0;
+
+      // Aggregate over weeks that fall within the range
+      const startD = new Date(startDate); startD.setHours(0,0,0,0);
+      const endD = new Date(endDate); endD.setHours(0,0,0,0);
+      const seenWeeks = new Set();
+      perWeek.forEach((weekStats, wKey) => {
+        const wMonday = weekStats.monday;
+        const wSunday = new Date(wMonday); wSunday.setDate(wMonday.getDate() + 6);
+        if (wMonday <= endD && wSunday >= startD) {
+          seenWeeks.add(wKey);
+          totalHS25Brut += weekStats.hs25Min;
+          totalHS50Brut += weekStats.hs50Min;
+          totalRecuperation += weekStats.recupMin;
+          const wNet = weekNetHS.get(wKey);
+          if (wNet) {
+            totalPaidHS25 += wNet.netHS25;
+            totalPaidHS50 += wNet.netHS50;
+          } else {
+            totalPaidHS25 += weekStats.hs25Min;
+            totalPaidHS50 += weekStats.hs50Min;
+          }
+        }
+      });
+
+      // Aggregate worked / férié totals from weekly totals (no change there)
+      Object.values(weeklyTotals).forEach(wt => {
+        totalWorked += wt.worked;
+        totalFerieWorked += wt.ferieWorked;
+        totalFerieAuto += wt.ferieAuto;
+        totalNight += wt.night || 0;
+        totalSundayWorked += wt.sundayWorked || 0;
+      });
+      totalNormal = totalWorked - totalHS25Brut - totalHS50Brut;
+      if (totalNormal < 0) totalNormal = 0;
+
+      const hs25H = totalPaidHS25 / 60;
+      const hs50H = totalPaidHS50 / 60;
+      const normalH = totalNormal / 60;
+      const ferieAutoH = totalFerieAuto / 60;
+      const ferieWorkedH = totalFerieWorked / 60;
+      const nightH = totalNight / 60;
+      const recupH = totalRecuperation / 60;
+
+      // Ledger up through the end of the range
+      const ledger = getRecupLedgerThroughDate(endDate);
+      const incomingDebtH = 0;
+      const outgoingDebtH = ledger.debt / 60;
+
+      const salaireBase = (normalH + ferieAutoH) * taux;
+      const salaireHS25 = hs25H * taux * 1.25;
+      const salaireHS50 = hs50H * taux * 1.5;
+      const bonusFerie = ferieWorkedH * taux;
+      const bonusNuit = nightH * taux * 0.20;
+      const salaireTotal = salaireBase + salaireHS25 + salaireHS50 + bonusFerie + bonusNuit;
+      const majoration = hs25H * taux * 0.25 + hs50H * taux * 0.5 + bonusFerie + bonusNuit;
+
+      return {
+        entries, weekCount: Object.keys(weeklyTotals).length,
+        totalWorked, totalNormal,
+        totalHS25Min: totalPaidHS25, totalHS50Min: totalPaidHS50,
+        totalHS25BrutMin: totalHS25Brut, totalHS50BrutMin: totalHS50Brut,
+        totalFerieWorked, totalFerieAuto, totalRecuperation,
+        totalNight, totalSundayWorked, nightH, bonusNuit,
+        netHS25: hs25H, netHS50: hs50H,
+        incomingDebtH, outgoingDebtH,
+        ledgerCreatedMin: ledger.totalCreatedMin,
+        ledgerRecoveredMin: ledger.totalRecoveredMin,
+        ledgerRemainingMin: ledger.debt,
+        ledgerHS25ConsumedMin: ledger.totalHS25ConsumedMin,
+        ledgerHS50ConsumedMin: ledger.totalHS50ConsumedMin,
+        // Owed HS at end of range: take carryOut of the last month in the range
+        owedHS25Min: (function() {
+          const lastMonthKey = endDate.getFullYear() + '-' + String(endDate.getMonth() + 1).padStart(2, '0');
+          const m = monthResults.get(lastMonthKey);
+          return m ? m.carryOutHS25Min : 0;
+        })(),
+        owedHS50Min: (function() {
+          const lastMonthKey = endDate.getFullYear() + '-' + String(endDate.getMonth() + 1).padStart(2, '0');
+          const m = monthResults.get(lastMonthKey);
+          return m ? m.carryOutHS50Min : 0;
+        })(),
+        taux, salaireBase, salaireHS25, salaireHS50, bonusFerie, salaireTotal, majoration,
+        absences: absencesCount, seuil
+      };
+    }
+
+    // --- Backup / Restore ---
+    function gatherAllData() {
+      const data = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        app: 'feuille-de-temps',
+        settings: state.settings,
+        paidHS: state.paidHS || {},
+        weeks: {}
+      };
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && /^week-\d{4}-W\d{2}$/.test(k)) {
+          try { data.weeks[k] = JSON.parse(localStorage.getItem(k)); }
+          catch (e) {}
+        }
+      }
+      return data;
+    }
+
+    async function backupToFiles() {
+      const data = gatherAllData();
+      const today = new Date();
+      const dateStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+      const filename = 'feuille-temps-backup-' + dateStr + '.json';
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+
+      // Try the modern File System Access API first (works on some browsers)
+      // Then fall back to navigator.share for iOS (which surfaces "Save to Files")
+      // Finally fall back to download link.
+
+      // iOS Safari supports navigator.share with files - this brings up the iOS share sheet
+      // including "Save to Files" → iCloud Drive
+      const file = new File([blob], filename, { type: 'application/json' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'Sauvegarde feuille de temps',
+            text: 'Sauvegarde du ' + today.toLocaleDateString('fr-FR')
+          });
+          // Mark backup as done
+          try { localStorage.setItem('lastBackup', today.toISOString()); } catch (e) {}
+          alert('Sauvegarde proposée. Choisis "Enregistrer dans Fichiers" → iCloud Drive pour la sauver durablement.');
+          render();
+          return;
+        } catch (err) {
+          // User cancelled or share failed - fall through to download
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      // Fallback: classic download
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      try { localStorage.setItem('lastBackup', today.toISOString()); } catch (e) {}
+      render();
+    }
+
+    function triggerRestore() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/json,.json';
+      input.onchange = (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const data = JSON.parse(ev.target.result);
+            if (!data || data.app !== 'feuille-de-temps' || !data.weeks) {
+              alert('Ce fichier n\'est pas une sauvegarde valide de Feuille de temps.');
+              return;
+            }
+            const weekCount = Object.keys(data.weeks).length;
+            const exportedAt = data.exportedAt ? new Date(data.exportedAt).toLocaleString('fr-FR') : 'date inconnue';
+            const ok = confirm(`Restaurer cette sauvegarde ?\n\nDate : ${exportedAt}\nSemaines : ${weekCount}\n\n⚠️ Cette opération REMPLACERA toutes les données actuelles.`);
+            if (!ok) return;
+
+            // Clear current week data, settings, and paidHS
+            const toRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+              const k = localStorage.key(i);
+              if (k && (/^week-\d{4}-W\d{2}$/.test(k) || k === 'settings' || k === 'paidHS')) toRemove.push(k);
+            }
+            toRemove.forEach(k => localStorage.removeItem(k));
+
+            // Restore
+            if (data.settings) localStorage.setItem('settings', JSON.stringify(data.settings));
+            if (data.paidHS) localStorage.setItem('paidHS', JSON.stringify(data.paidHS));
+            Object.keys(data.weeks).forEach(k => {
+              localStorage.setItem(k, JSON.stringify(data.weeks[k]));
+            });
+
+            loadSettings();
+            loadPaidHS();
+            loadWeek();
+            alert('Restauration réussie : ' + weekCount + ' semaines.');
+            render();
+          } catch (err) {
+            alert('Erreur lors de la lecture du fichier : ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    }
+
+    function getBackupStatus() {
+      try {
+        const last = localStorage.getItem('lastBackup');
+        if (!last) return { never: true };
+        const lastDate = new Date(last);
+        const daysSince = Math.floor((Date.now() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+        return { never: false, lastDate, daysSince };
+      } catch (e) {
+        return { never: true };
+      }
+    }
+
+    // --- PDF ---
+    function generatePDF() {
+      if (!window.jspdf || !window.jspdf.jsPDF) {
+        alert("La librairie PDF n'est pas chargée. Vérifie ta connexion internet et recharge la page.");
+        return;
+      }
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+
+      const startDate = parseIsoDate(state.exportStart);
+      const endDate = parseIsoDate(state.exportEnd);
+      if (!startDate || !endDate || startDate > endDate) {
+        alert('Plage de dates invalide.'); return;
+      }
+
+      const r = calcRange(startDate, endDate);
+      const pageW = doc.internal.pageSize.getWidth();
+      const margin = 15;
+
+      const COL = {
+        ink: [26, 22, 18], muted: [122, 111, 92], gold: [184, 132, 47],
+        cream: [251, 245, 236], creamDark: [244, 236, 220],
+        ferie: [154, 79, 62], border: [224, 212, 190],
+        warning: [232, 149, 71], success: [91, 123, 91]
+      };
+
+      doc.setFillColor(...COL.ink);
+      doc.rect(0, 0, pageW, 8, 'F');
+
+      doc.setFont('times', 'italic'); doc.setFontSize(28); doc.setTextColor(...COL.ink);
+      doc.text('Feuille de temps', margin, 25);
+      const titleWidth = doc.getTextWidth('Feuille de temps');
+      doc.setFont('times', 'normal'); doc.setFontSize(16); doc.setTextColor(...COL.muted);
+      doc.text('· Loïc', margin + titleWidth + 4, 25);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(...COL.muted);
+      doc.text('Suivi des heures · droit français', margin, 31);
+
+      const fmt = (d) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      const periodLabel = state.exportType === 'week'
+        ? `Semaine ${getWeekNumber(startDate)}`
+        : state.exportType === 'month'
+          ? startDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
+          : 'Période personnalisée';
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(...COL.ink);
+      const pTW = doc.getTextWidth(periodLabel);
+      doc.text(periodLabel, pageW - margin - pTW, 25);
+      doc.setFont('times', 'italic'); doc.setFontSize(9); doc.setTextColor(...COL.muted);
+      const dateRange = `${fmt(startDate)} — ${fmt(endDate)}`;
+      const drW = doc.getTextWidth(dateRange);
+      doc.text(dateRange, pageW - margin - drW, 31);
+
+      doc.setDrawColor(...COL.border); doc.setLineWidth(0.3);
+      doc.line(margin, 38, pageW - margin, 38);
+
+      // Summary box
+      const summaryY = 46;
+      const summaryH = 38;
+      doc.setFillColor(...COL.ink);
+      doc.roundedRect(margin, summaryY, pageW - 2 * margin, summaryH, 3, 3, 'F');
+
+      // Compute "dont récupérées" portions for each tier:
+      // For the displayed brut values, we show the BRUT amounts (before récup deduction)
+      // and a sub-line indicating how many of those were used to repay récup debt.
+      const hs25BrutMin = r.totalHS25BrutMin || 0;
+      const hs50BrutMin = r.totalHS50BrutMin || 0;
+      const hs25UsedForRecupMin = hs25BrutMin - (r.netHS25 * 60);
+      const hs50UsedForRecupMin = hs50BrutMin - (r.netHS50 * 60);
+
+      const colW = (pageW - 2 * margin) / 4;
+      const cells = [
+        { label: 'Travaillé', value: formatHours(r.totalWorked), sub: null },
+        { label: 'Normales', value: formatHours(r.totalNormal + r.totalFerieAuto), sub: null },
+        { label: 'HS 25%', value: formatHours(hs25BrutMin), highlight: hs25BrutMin > 0, sub: hs25UsedForRecupMin > 0 ? 'dont ' + formatHours(hs25UsedForRecupMin) + ' récupérées' : null },
+        { label: 'HS 50%', value: formatHours(hs50BrutMin), highlight: hs50BrutMin > 0, sub: hs50UsedForRecupMin > 0 ? 'dont ' + formatHours(hs50UsedForRecupMin) + ' récupérées' : null }
+      ];
+      cells.forEach((c, i) => {
+        const cx = margin + i * colW + colW / 2;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(7);
+        doc.setTextColor(168, 159, 144);
+        doc.text(c.label.toUpperCase(), cx, summaryY + 10, { align: 'center', charSpace: 0.5 });
+        doc.setFont('courier', 'bold'); doc.setFontSize(15);
+        doc.setTextColor(...(c.highlight ? [232, 181, 71] : COL.cream));
+        doc.text(c.value, cx, summaryY + 21, { align: 'center' });
+        if (c.sub) {
+          doc.setFont('helvetica', 'italic'); doc.setFontSize(6.5);
+          doc.setTextColor(168, 159, 144);
+          doc.text(c.sub, cx, summaryY + 30, { align: 'center' });
+        }
+      });
+      let cursorY = summaryY + summaryH + 8;
+
+      // Recuperation ledger block: shown only when relevant (debt > 0 OR there's been activity)
+      const ledgerCreated = r.ledgerCreatedMin || 0;
+      const ledgerRemaining = r.ledgerRemainingMin || 0;
+      // Skip the block entirely if everything is cleared (no récup created OR fully recovered with zero balance)
+      if (ledgerCreated > 0 && ledgerRemaining > 0) {
+        const hs25CMin = r.ledgerHS25ConsumedMin || 0;
+        const hs50CMin = r.ledgerHS50ConsumedMin || 0;
+        const breakdownParts = [];
+        if (hs25CMin > 0) breakdownParts.push(formatHours(hs25CMin) + ' HS 25%');
+        if (hs50CMin > 0) breakdownParts.push(formatHours(hs50CMin) + ' HS 50%');
+        const hasBreakdown = breakdownParts.length > 0;
+        const blockH = hasBreakdown ? 30 : 26;
+        doc.setFillColor(254, 242, 226);
+        doc.setDrawColor(232, 149, 71);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(margin, cursorY, pageW - 2 * margin, blockH, 2, 2, 'FD');
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+        doc.setTextColor(154, 99, 47);
+        doc.text('Récupération · journal cumulé', margin + 4, cursorY + 7);
+
+        const colsW = (pageW - 2 * margin) / 3;
+        const cells = [
+          { label: 'CRÉÉES', value: formatHours(ledgerCreated), color: COL.muted },
+          { label: 'RÉCUPÉRÉES', value: formatHours(r.ledgerRecoveredMin || 0), color: [91, 123, 91], sub: hasBreakdown ? 'dont ' + breakdownParts.join(' + ') : null },
+          { label: 'SOLDE RESTANT', value: formatHours(ledgerRemaining), color: COL.warning }
+        ];
+        cells.forEach((c, i) => {
+          const cx = margin + i * colsW + colsW / 2;
+          doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5);
+          doc.setTextColor(...COL.muted);
+          doc.text(c.label, cx, cursorY + 14, { align: 'center', charSpace: 0.5 });
+          doc.setFont('courier', 'bold'); doc.setFontSize(11);
+          doc.setTextColor(...c.color);
+          doc.text(c.value, cx, cursorY + 21, { align: 'center' });
+          if (c.sub) {
+            doc.setFont('helvetica', 'italic'); doc.setFontSize(6);
+            doc.setTextColor(...COL.muted);
+            doc.text(c.sub, cx, cursorY + 27, { align: 'center' });
+          }
+        });
+        cursorY += blockH + 4;
+      }
+
+      // Heures dues block (HS not paid yet, carried to next month)
+      const owedHS25 = r.owedHS25Min || 0;
+      const owedHS50 = r.owedHS50Min || 0;
+      if (owedHS25 > 0 || owedHS50 > 0) {
+        const blockH = 22;
+        doc.setFillColor(244, 230, 204);
+        doc.setDrawColor(184, 132, 47);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(margin, cursorY, pageW - 2 * margin, blockH, 2, 2, 'FD');
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+        doc.setTextColor(138, 99, 32);
+        doc.text('Heures supplémentaires dues · récapitulatif', margin + 4, cursorY + 7);
+
+        const colsW = (pageW - 2 * margin) / 2;
+        const cells = [
+          { label: 'HS 25% DUES', value: formatHours(owedHS25), color: [138, 99, 32] },
+          { label: 'HS 50% DUES', value: formatHours(owedHS50), color: [138, 99, 32] }
+        ];
+        cells.forEach((c, i) => {
+          const cx = margin + i * colsW + colsW / 2;
+          doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5);
+          doc.setTextColor(...COL.muted);
+          doc.text(c.label, cx, cursorY + 13, { align: 'center', charSpace: 0.5 });
+          doc.setFont('courier', 'bold'); doc.setFontSize(11);
+          doc.setTextColor(...c.color);
+          doc.text(c.value, cx, cursorY + 19, { align: 'center' });
+        });
+        cursorY += blockH + 4;
+      }
+
+      // Détail férié / dimanche / nuit
+      const ferieOnlyPdf = (r.totalFerieWorked || 0) - (r.totalSundayWorked || 0);
+      if (r.totalFerieWorked > 0 || r.totalFerieAuto > 0 || r.totalNight > 0) {
+        // Build the lines; may need a taller box for night
+        const lines = [];
+        if (r.totalFerieAuto > 0) lines.push(`Fériés non travaillés (auto, taux normal : +${formatHours(r.totalFerieAuto)})`);
+        if (ferieOnlyPdf > 0) lines.push(`Fériés travaillés (+100% : ${formatHours(ferieOnlyPdf)})`);
+        if (r.totalSundayWorked > 0) lines.push(`Dimanches travaillés (+100% : ${formatHours(r.totalSundayWorked)})`);
+        if (r.totalNight > 0) lines.push(`Heures de nuit 22h–6h (+20% : ${formatHours(r.totalNight)})`);
+        const boxH = 6 + lines.length * 5;
+        doc.setFillColor(...COL.creamDark);
+        doc.roundedRect(margin, cursorY, pageW - 2 * margin, boxH, 2, 2, 'F');
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(...COL.muted);
+        let ly = cursorY + 6;
+        lines.forEach(line => {
+          doc.text(line, margin + 4, ly);
+          ly += 5;
+        });
+        cursorY += boxH + 4;
+      }
+
+      // --- Detail table: one row per entry, grouped by day
+      const tableRows = [];
+      r.entries.forEach(e => {
+        const dateStr = e.date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+        const dayShort = e.dayName.substring(0, 3) + '.';
+        const ferie = e.meta.ferie;
+
+        if (e.entries.length === 0) {
+          // Empty day
+          if (ferie && e.meta.isWorkingDay) {
+            tableRows.push([
+              dayShort, dateStr,
+              '★ ' + ferie + ' · non travaillé',
+              '', '', '',
+              formatHours(e.meta.ferieAutoMin) + ' (auto)'
+            ]);
+          } else {
+            tableRows.push([dayShort, dateStr, ferie ? '★ ' + ferie : '—', '', '', '', '—']);
+          }
+        } else {
+          e.entries.forEach((entry, idx) => {
+            const activity = entry.activity || 'au_travail';
+            const cfg = ACTIVITIES[activity] || ACTIVITIES.au_travail;
+            let label = cfg.label;
+            if (idx === 0 && ferie) label = '★ ' + ferie + ' · ' + label;
+            tableRows.push([
+              idx === 0 ? dayShort : '',
+              idx === 0 ? dateStr : '',
+              label,
+              entry.arrival || '',
+              entry.departure || '',
+              entry.pause ? entry.pause + ' min' : '',
+              cfg.isWork ? formatHours(calcEntryMinutes(entry)) : '—'
+            ]);
+          });
+        }
+      });
+
+      doc.autoTable({
+        startY: cursorY,
+        head: [['Jour', 'Date', 'Activité', 'Arrivée', 'Départ', 'Pause', 'Total']],
+        body: tableRows,
+        margin: { left: margin, right: margin },
+        theme: 'plain',
+        styles: {
+          font: 'helvetica', fontSize: 9,
+          cellPadding: { top: 3, bottom: 3, left: 3, right: 3 },
+          textColor: COL.ink, lineColor: COL.border, lineWidth: 0.1
+        },
+        headStyles: {
+          fillColor: [244, 236, 220], textColor: COL.muted,
+          fontStyle: 'bold', fontSize: 7.5,
+          cellPadding: { top: 4, bottom: 4, left: 3, right: 3 }
+        },
+        bodyStyles: { lineColor: COL.border, lineWidth: { bottom: 0.15 } },
+        columnStyles: {
+          0: { cellWidth: 16, fontStyle: 'bold' },
+          1: { cellWidth: 18, font: 'courier' },
+          2: { cellWidth: 'auto' },
+          3: { cellWidth: 18, font: 'courier', halign: 'center' },
+          4: { cellWidth: 18, font: 'courier', halign: 'center' },
+          5: { cellWidth: 18, font: 'courier', halign: 'center' },
+          6: { cellWidth: 24, font: 'courier', fontStyle: 'bold', halign: 'right' }
+        },
+        didParseCell: (data) => {
+          if (data.section === 'body') {
+            const txt = String(data.row.raw[2] || '');
+            if (txt.includes('À récupérer')) {
+              data.cell.styles.fillColor = [254, 242, 226];
+              data.cell.styles.textColor = [138, 79, 31];
+              data.cell.styles.fontStyle = 'italic';
+            } else if (txt.startsWith('★')) {
+              data.cell.styles.fillColor = [251, 232, 232];
+              data.cell.styles.textColor = [122, 60, 50];
+            }
+          }
+        }
+      });
+      cursorY = doc.lastAutoTable.finalY + 8;
+
+      // Salary block intentionally removed from PDF export.
+      // The salary estimate remains visible in the app only.
+
+      // Absences summary
+      const totalAbs = Object.values(r.absences).reduce((a, b) => a + b, 0);
+      if (totalAbs > 0) {
+        if (cursorY > 250) { doc.addPage(); cursorY = margin; }
+        doc.setFont('times', 'italic'); doc.setFontSize(11); doc.setTextColor(...COL.ink);
+        doc.text('Absences sur la période', margin, cursorY + 4);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(...COL.muted);
+        let line = '';
+        if (r.absences.conges) line += `Congés : ${r.absences.conges} j   ·   `;
+        if (r.absences.maladie) line += `Maladie : ${r.absences.maladie} j   ·   `;
+        if (r.absences.arret) line += `Arrêt : ${r.absences.arret} j   ·   `;
+        if (r.absences.recuperation) line += `Récup : ${r.absences.recuperation} j   ·   `;
+        line = line.replace(/   ·   $/, '');
+        doc.text(line, margin, cursorY + 10);
+        cursorY += 16;
+      }
+
+      // Footer
+      const totalPages = doc.internal.getNumberOfPages();
+      for (let p = 1; p <= totalPages; p++) {
+        doc.setPage(p);
+        const pageH = doc.internal.pageSize.getHeight();
+        doc.setDrawColor(...COL.border); doc.setLineWidth(0.2);
+        doc.line(margin, pageH - 14, pageW - margin, pageH - 14);
+        doc.setFont('times', 'italic'); doc.setFontSize(8); doc.setTextColor(...COL.muted);
+        const gen = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        doc.text('Généré le ' + gen, margin, pageH - 8);
+        const pt = 'Page ' + p + ' / ' + totalPages;
+        const ptW = doc.getTextWidth(pt);
+        doc.text(pt, pageW - margin - ptW, pageH - 8);
+      }
+
+      doc.save('feuille-temps-' + isoDate(startDate) + '-au-' + isoDate(endDate) + '.pdf');
+      closeExport();
+    }
+
+    // --- Icons ---
+    const ICONS = {
+      settings: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+      chevronLeft: '<svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>',
+      chevronRight: '<svg class="icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>',
+      sparkles: '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/><path d="M19 14l.75 2.25L22 17l-2.25.75L19 20l-.75-2.25L16 17l2.25-.75z"/></svg>',
+      pdf: '<svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+      download: '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+      upload: '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+      trash: '<svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+      x: '<svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+      plus: '<svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+    };
+
+    function fmtDate(d) { return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }); }
+    function fmtDateLong(d) { return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); }
+
+    // Custom time input using two selects (avoids iOS time picker auto-close bug)
+    function renderTimeSelect(currentValue, dayKey, idx, field) {
+      const parts = (currentValue || '').split(':');
+      const curH = parts[0] || '';
+      const curM = parts[1] || '';
+      let hourOpts = '<option value=""' + (curH === '' ? ' selected' : '') + '>--</option>';
+      for (let h = 0; h < 24; h++) {
+        const v = String(h).padStart(2, '0');
+        hourOpts += `<option value="${v}"${v === curH ? ' selected' : ''}>${v}</option>`;
+      }
+      let minOpts = '<option value=""' + (curM === '' ? ' selected' : '') + '>--</option>';
+      const QUARTERS = ['00', '15', '30', '45'];
+      // Include the current value even if not a quarter (preserves legacy data)
+      if (curM && !QUARTERS.includes(curM)) {
+        minOpts += `<option value="${curM}" selected>${curM}</option>`;
+      }
+      QUARTERS.forEach(v => {
+        minOpts += `<option value="${v}"${v === curM ? ' selected' : ''}>${v}</option>`;
+      });
+      return `
+        <div class="time-pick" data-day="${dayKey}" data-idx="${idx}" data-field="${field}">
+          <select class="input time-select" onchange="onTimeSelectChange(this)">${hourOpts}</select>
+          <span class="time-sep">:</span>
+          <select class="input time-select" onchange="onTimeSelectChange(this)">${minOpts}</select>
+        </div>
+      `;
+    }
+    function onTimeSelectChange(selectElem) {
+      const wrapper = selectElem.closest('.time-pick');
+      if (!wrapper) return;
+      const selects = wrapper.querySelectorAll('select');
+      if (selects.length !== 2) return;
+      let h = selects[0].value;
+      let m = selects[1].value;
+      // If user picked only hour or only minute, auto-fill the other with "00"
+      // so the time is immediately valid and counted.
+      if (h !== '' && m === '') { m = '00'; selects[1].value = '00'; }
+      if (h === '' && m !== '') { h = '00'; selects[0].value = '00'; }
+      const value = (h !== '' && m !== '') ? (h + ':' + m) : '';
+      const dayKey = wrapper.dataset.day;
+      const idx = parseInt(wrapper.dataset.idx);
+      const field = wrapper.dataset.field;
+      ensureDayArray(dayKey);
+      if (!state.weekData[dayKey][idx]) state.weekData[dayKey][idx] = {};
+      state.weekData[dayKey][idx][field] = value;
+      saveWeek();
+      // The select picker is already closed after user taps OK, so a full render is safe
+      // and ensures the summary box (Travaillé, HS25, HS50, salaire) is updated.
+      render();
+    }
+    function isToday(date) { return date.toDateString() === new Date().toDateString(); }
+
+    function renderEntry(dayKey, idx, entry) {
+      const activity = entry.activity || 'au_travail';
+      const cfg = ACTIVITIES[activity] || ACTIVITIES.au_travail;
+      const isWork = cfg.isWork;
+      const minutes = calcEntryMinutes(entry);
+
+      // Detect midnight-crossing shift for display
+      let crossesMidnight = false;
+      if (isWork && entry.arrival && entry.departure) {
+        const arr = timeToMinutes(entry.arrival);
+        const dep = timeToMinutes(entry.departure);
+        if (dep <= arr) crossesMidnight = true;
+      }
+
+      const pillsHtml = Object.entries(ACTIVITIES).map(([key, c]) => {
+        const isActive = activity === key;
+        const styleAttr = isActive ? `style="--pill-bg:${c.bg}; --pill-color:${c.color}"` : '';
+        return `<button class="pill ${isActive ? 'pill-active' : ''}" ${styleAttr} onclick="setEntryActivity('${dayKey}', ${idx}, '${key}')">${c.short}</button>`;
+      }).join('');
+
+      let bodyHtml = '';
+      if (isWork) {
+        bodyHtml = `
+          <div class="input-grid">
+            <div>
+              <label class="input-label">Arrivée</label>
+              ${renderTimeSelect(entry.arrival, dayKey, idx, 'arrival')}
+            </div>
+            <div>
+              <label class="input-label">Départ${crossesMidnight ? ' <span style="color:#3D5A6C; font-weight:600">(+1j)</span>' : ''}</label>
+              ${renderTimeSelect(entry.departure, dayKey, idx, 'departure')}
+            </div>
+            <div>
+              <label class="input-label">Pause (min)</label>
+              <input type="number" class="input" inputmode="numeric" value="${entry.pause || ''}" placeholder="0" onchange="updateEntry('${dayKey}', ${idx}, 'pause', this.value)">
+            </div>
+          </div>
+          ${crossesMidnight ? `<p style="font-size:0.6875rem; color:#3D5A6C; margin:0.5rem 0 0; font-style:italic">☾ Ce créneau passe minuit : départ le lendemain. Durée comptée : ${formatHours(minutes)}.</p>` : ''}
+        `;
+      } else {
+        bodyHtml = `<div class="activity-badge" style="background:${cfg.bg}; color:${cfg.color}">${escapeHtml(cfg.label)} · journée complète</div>`;
+      }
+
+      return `
+        <div class="entry-block">
+          <div class="entry-header">
+            <span class="entry-label">Saisie ${idx + 1}${isWork && minutes > 0 ? ' · ' : ''}${isWork && minutes > 0 ? `<span class="entry-minutes">${formatHours(minutes)}</span>` : ''}</span>
+            <button class="btn btn-ghost" style="padding:0.25rem" onclick="removeEntry('${dayKey}', ${idx})" aria-label="Supprimer cette saisie">${ICONS.trash}</button>
+          </div>
+          <div class="pills-row" style="margin-bottom:0.625rem">${pillsHtml}</div>
+          ${bodyHtml}
+        </div>
+      `;
+    }
+
+    function renderDayCard(d, i) {
+      const monday = getMondayOfWeek(state.currentDate);
+      const date = new Date(monday); date.setDate(monday.getDate() + i);
+      const day = state.weekData[d.key];
+      const entries = getDayEntries(day);
+      const meta = getDayMeta(day, date, i, state.settings);
+      const minutes = meta.workedMin;
+      const isWeekend = i === 5 || i === 6;
+      const today = isToday(date);
+      const ferie = meta.ferie;
+
+      let cardClass = 'card';
+      if (today) cardClass = 'card card-today';
+      else if (ferie) cardClass = 'card card-ferie';
+      else if (isWeekend) cardClass = 'card card-weekend';
+
+      // Compute display total: worked + ferie auto
+      const displayTotal = minutes + meta.ferieAutoMin;
+      const totalClass = displayTotal > 0 ? 'day-total' : 'day-total day-total-empty';
+
+      const ferieBadge = ferie ? `<span class="ferie-badge">★ ${escapeHtml(ferie)}</span>` : '';
+      const sundayBadge = (i === 6 && !ferie) ? `<span class="ferie-badge">☀ Dimanche +100%</span>` : '';
+      const nightBadge = (meta.nightMin > 0) ? `<span class="night-badge">☾ Nuit ${formatHours(meta.nightMin)}</span>` : '';
+      const nameClass = (isWeekend && !today && !ferie) ? 'day-name day-name-muted' : 'day-name';
+
+      const entriesHtml = entries.length > 0
+        ? entries.map((e, idx) => renderEntry(d.key, idx, e)).join('')
+        : '';
+
+      // Auto-blocs (férié non travaillé / à récupérer)
+      let autoHtml = '';
+      if (meta.ferieAutoMin > 0) {
+        autoHtml += `
+          <div class="auto-entry auto-entry-ferie">
+            <span>★ Férié non travaillé · ${escapeHtml(ferie)}</span>
+            <span class="auto-entry-value">+${formatHours(meta.ferieAutoMin)}</span>
+          </div>
+        `;
+      }
+
+      const addBtnHtml = `<button class="add-entry-btn" onclick="addEntry('${d.key}')">${ICONS.plus} Ajouter une saisie</button>`;
+
+      return `
+        <div class="${cardClass}">
+          <div class="day-header">
+            <div>
+              <h3 class="${nameClass}">${d.label}</h3><span class="day-date">${fmtDate(date)}</span>
+              ${ferieBadge ? ' ' + ferieBadge : ''}${sundayBadge ? ' ' + sundayBadge : ''}${nightBadge ? ' ' + nightBadge : ''}
+            </div>
+            <span id="day-total-${d.key}" class="${totalClass}">${formatHours(displayTotal)}</span>
+          </div>
+          ${entriesHtml}
+          ${addBtnHtml}
+          ${autoHtml}
+        </div>
+      `;
+    }
+
+    function renderExportModal() {
+      if (!state.showExport) return '';
+      const startD = parseIsoDate(state.exportStart);
+      const endD = parseIsoDate(state.exportEnd);
+      const previewText = (startD && endD && startD <= endD)
+        ? `<strong>${fmtDateLong(startD)}</strong> → <strong>${fmtDateLong(endD)}</strong>`
+        : '<em>Dates invalides</em>';
+      const disabled = !(startD && endD && startD <= endD);
+      return `
+        <div class="modal-backdrop" onclick="if(event.target===this) closeExport()">
+          <div class="modal">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.25rem">
+              <h2>Exporter en PDF</h2>
+              <button class="btn btn-ghost" onclick="closeExport()" aria-label="Fermer">${ICONS.x}</button>
+            </div>
+            <p class="modal-subtitle">Choisis la période à exporter</p>
+            <div class="period-options">
+              <button class="period-option ${state.exportType === 'week' ? 'period-option-active' : ''}" onclick="setExportType('week')">Semaine<small>en cours</small></button>
+              <button class="period-option ${state.exportType === 'month' ? 'period-option-active' : ''}" onclick="setExportType('month')">Mois<small>en cours</small></button>
+              <button class="period-option ${state.exportType === 'custom' ? 'period-option-active' : ''}" onclick="setExportType('custom')">Du... au<small>au choix</small></button>
+            </div>
+            <div class="panel-grid-2" style="margin-bottom:1rem">
+              <div>
+                <label class="panel-label">Du</label>
+                <input type="date" class="input" value="${state.exportStart}" onchange="setExportDate('exportStart', this.value); state.exportType='custom'">
+              </div>
+              <div>
+                <label class="panel-label">Au</label>
+                <input type="date" class="input" value="${state.exportEnd}" onchange="setExportDate('exportEnd', this.value); state.exportType='custom'">
+              </div>
+            </div>
+            <div class="preview-info">${previewText}</div>
+            <div class="modal-actions">
+              <button class="btn btn-secondary" onclick="closeExport()">Annuler</button>
+              <button class="btn btn-primary" onclick="generatePDF()" ${disabled ? 'disabled' : ''}>${ICONS.pdf} Générer le PDF</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Render the "HS payées par l'employeur" section in settings
+    function renderPaidHSSection() {
+      const { monthResults } = resolveAllMonths();
+      const monthKeys = Array.from(monthResults.keys()).sort();
+      if (monthKeys.length === 0) {
+        return `
+          <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid rgba(224,212,190,0.6)">
+            <h3 style="margin:0 0 0.5rem">HS payées par l'employeur</h3>
+            <p style="font-size:0.75rem; color:#7A6F5C; margin:0; line-height:1.4">
+              Aucun mois avec des heures supplémentaires pour le moment.
+            </p>
+          </div>
+        `;
+      }
+
+      const monthRows = monthKeys.map(mk => {
+        const m = monthResults.get(mk);
+        const paid = getPaidHSForMonth(mk);
+        const netHS25 = m.netHS25Min || 0;
+        const netHS50 = m.netHS50Min || 0;
+        const dueHS25 = m.carryOutHS25Min || 0;
+        const dueHS50 = m.carryOutHS50Min || 0;
+
+        // Only show months with HS to pay or already paid
+        if (netHS25 === 0 && netHS50 === 0 && paid.hs25Min === 0 && paid.hs50Min === 0) return '';
+
+        const fmt = (min) => {
+          if (!min || min === 0) return '';
+          const h = Math.floor(min / 60);
+          const mm = min % 60;
+          return mm === 0 ? String(h) : (h + 'h' + String(mm).padStart(2, '0'));
+        };
+        const dateObj = parseIsoDate(mk + '-01');
+        const monthLabel = dateObj ? dateObj.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }) : mk;
+        const hs25Display = netHS25 > 0 ? formatHours(netHS25) : '0h 00';
+        const hs50Display = netHS50 > 0 ? formatHours(netHS50) : '0h 00';
+        const totalDue = dueHS25 + dueHS50;
+
+        return `
+          <div style="margin-top:0.875rem; padding:0.75rem; background:rgba(255,255,255,0.5); border:1px solid rgba(224,212,190,0.6); border-radius:10px">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.25rem">
+              <span style="font-family:'Fraunces',serif; font-weight:600; font-size:0.9375rem; text-transform:capitalize">${escapeHtml(monthLabel)}</span>
+              ${totalDue > 0 ? `<span style="font-size:0.6875rem; color:#8A6320; font-weight:500">Dues : ${formatHours(totalDue)}</span>` : '<span style="font-size:0.6875rem; color:#5B7B5B; font-weight:500">✓ tout payé</span>'}
+            </div>
+            <p style="font-size:0.6875rem; color:#7A6F5C; margin:0 0 0.5rem">À payer : ${hs25Display} HS 25% · ${hs50Display} HS 50%</p>
+            <div class="panel-grid-2" style="gap:0.5rem">
+              <div>
+                <label class="panel-label" style="font-size:0.625rem">HS 25% payées</label>
+                <input type="text" class="input" inputmode="decimal" value="${fmt(paid.hs25Min)}" placeholder="ex: 5 ou 5h30" onchange="updatePaidHSField('${mk}', 'hs25Min', this.value)" style="font-size:0.875rem; padding:0.4375rem 0.625rem; min-height:36px">
+              </div>
+              <div>
+                <label class="panel-label" style="font-size:0.625rem">HS 50% payées</label>
+                <input type="text" class="input" inputmode="decimal" value="${fmt(paid.hs50Min)}" placeholder="ex: 0 ou 2h" onchange="updatePaidHSField('${mk}', 'hs50Min', this.value)" style="font-size:0.875rem; padding:0.4375rem 0.625rem; min-height:36px">
+              </div>
+            </div>
+          </div>
+        `;
+      }).filter(Boolean).join('');
+
+      if (!monthRows) {
+        return `
+          <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid rgba(224,212,190,0.6)">
+            <h3 style="margin:0 0 0.5rem">HS payées par l'employeur</h3>
+            <p style="font-size:0.75rem; color:#7A6F5C; margin:0; line-height:1.4">
+              Aucun mois avec des heures supplémentaires à payer pour le moment.
+            </p>
+          </div>
+        `;
+      }
+
+      return `
+        <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid rgba(224,212,190,0.6)">
+          <h3 style="margin:0 0 0.5rem">HS payées par l'employeur</h3>
+          <p style="font-size:0.75rem; color:#7A6F5C; margin:0 0 0.5rem; line-height:1.4">
+            Saisis pour chaque mois ce qui t'a effectivement été payé sur ta fiche de paie.
+            Les heures non payées sont reportées sur le mois suivant comme HS supplémentaires.
+          </p>
+          ${monthRows}
+        </div>
+      `;
+    }
+
+    function render() {
+      const calc = getCurrentCalc();
+      const monday = getMondayOfWeek(state.currentDate);
+      const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
+      const weekNum = getWeekNumber(monday);
+      const seuil = parseFloat(state.settings.contractuel) || 35;
+
+      const backupStatus = getBackupStatus();
+      const backupStatusText = backupStatus.never
+        ? 'Jamais sauvegardé'
+        : backupStatus.daysSince === 0
+          ? 'Aujourd\'hui'
+          : backupStatus.daysSince === 1
+            ? 'Hier'
+            : 'Il y a ' + backupStatus.daysSince + ' jours';
+      const backupStatusColor = backupStatus.never || backupStatus.daysSince > 14
+        ? '#C56B5A'
+        : backupStatus.daysSince > 7
+          ? '#E8A547'
+          : '#5B7B5B';
+
+      const settingsHtml = state.showSettings ? `
+        <div class="card panel">
+          <h3>Réglages</h3>
+          <div class="panel-grid-2">
+            <div>
+              <label class="panel-label">Heures contractuelles / sem.</label>
+              <input type="number" class="input" inputmode="decimal" value="${state.settings.contractuel}" onchange="updateSetting('contractuel', this.value)">
+            </div>
+            <div>
+              <label class="panel-label">Taux horaire brut (€/h)</label>
+              <input type="number" step="0.01" class="input" inputmode="decimal" value="${state.settings.taux}" placeholder="ex : 12.50" onchange="updateSetting('taux', this.value)">
+            </div>
+          </div>
+          <div style="margin-top:0.75rem">
+            <label class="panel-label">Date de début de contrat</label>
+            <input type="date" class="input" value="${state.settings.contractStart || ''}" onchange="updateSetting('contractStart', this.value)">
+            <p style="font-size:0.6875rem; color:#A89F90; margin:0.375rem 0 0; font-style:italic">Les semaines antérieures à cette date ne génèrent ni HS ni récup.</p>
+          </div>
+          <div style="margin-top:0.75rem">
+            <label class="panel-label">Cotisations sociales (% du brut)</label>
+            <input type="number" step="0.1" min="0" max="50" class="input" inputmode="decimal" value="${state.settings.cotisations}" placeholder="23" onchange="updateSetting('cotisations', this.value)">
+            <p style="font-size:0.6875rem; color:#A89F90; margin:0.375rem 0 0; font-style:italic">Sert au calcul du net estimé. ~22-23% pour un non-cadre.</p>
+          </div>
+
+          ${renderPaidHSSection()}
+
+          <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid rgba(224,212,190,0.6)">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.625rem; flex-wrap:wrap; gap:0.5rem">
+              <h3 style="margin:0">Sauvegarde iCloud</h3>
+              <span style="font-size:0.75rem; color:${backupStatusColor}; font-weight:500">${backupStatusText}</span>
+            </div>
+            <p style="font-size:0.75rem; color:#7A6F5C; margin:0 0 0.875rem; line-height:1.4">
+              Sauve un fichier JSON de toutes tes données. Choisis "Enregistrer dans Fichiers" → iCloud Drive pour le retrouver sur tous tes appareils.
+            </p>
+            <div class="panel-grid-2">
+              <button class="btn btn-primary" onclick="backupToFiles()">${ICONS.download} Sauvegarder</button>
+              <button class="btn btn-secondary" onclick="triggerRestore()">${ICONS.upload || ICONS.download} Restaurer</button>
+            </div>
+          </div>
+        </div>
+      ` : '';
+
+      // Backup reminder banner (when last backup > 14 days or never)
+      const showBackupReminder = (backupStatus.never || backupStatus.daysSince > 14) && !state.showSettings;
+      const backupReminder = showBackupReminder ? `
+        <div class="card" style="margin-bottom:1rem; padding:0.875rem 1rem; background:rgba(232,165,71,0.12); border-color:rgba(232,165,71,0.35); display:flex; align-items:center; gap:0.75rem">
+          <div style="flex:1">
+            <p style="font-family:'Fraunces',serif; font-style:italic; font-size:0.9375rem; margin:0; color:#8A6320">
+              ${backupStatus.never ? 'Pense à sauvegarder tes données.' : 'Dernière sauvegarde il y a ' + backupStatus.daysSince + ' jours.'}
+            </p>
+            <p style="font-size:0.75rem; color:#7A6F5C; margin:0.125rem 0 0">Une simple manip vers iCloud Drive et c'est en sécurité.</p>
+          </div>
+          <button class="btn btn-primary" style="padding:0.5rem 0.875rem; font-size:0.8125rem" onclick="backupToFiles()">Sauvegarder</button>
+        </div>
+      ` : '';
+
+      const templatesHtml = state.showTemplates ? `
+        <div class="card panel">
+          <p style="font-size:0.8125rem; color:#7A6F5C; margin:0 0 0.75rem">
+            Pré-remplit Lundi à Vendredi en "Au travail" sans pause. Remplace le contenu actuel.
+          </p>
+          <div class="templates-buttons">
+            <button class="btn btn-primary" onclick="loadTemplate('conditionnement')">
+              <span class="template-btn-content"><span>Conditionnement</span><small>9h–16h</small></span>
+            </button>
+            <button class="btn btn-primary" onclick="loadTemplate('brassage')">
+              <span class="template-btn-content"><span>Brassage</span><small>8h–15h</small></span>
+            </button>
+          </div>
+        </div>
+      ` : '';
+
+      // Récup ledger — always visible as a permanent journal
+      const remainingMin = calc.ledgerRemainingMin || 0;
+      const isClearedRecup = remainingMin === 0;
+      const hs25ConsumedMin = calc.ledgerHS25ConsumedMin || 0;
+      const hs50ConsumedMin = calc.ledgerHS50ConsumedMin || 0;
+      const breakdownParts = [];
+      if (hs25ConsumedMin > 0) breakdownParts.push(formatHours(hs25ConsumedMin) + ' HS 25%');
+      if (hs50ConsumedMin > 0) breakdownParts.push(formatHours(hs50ConsumedMin) + ' HS 50%');
+      const recoveredBreakdown = breakdownParts.length > 0
+        ? `<p class="summary-subnote" style="color:#A8C9A8">dont ${breakdownParts.join(' + ')}</p>`
+        : '';
+      const recupBlock = `
+        <div class="summary-section">
+          <p class="summary-label" style="text-align:center; margin-bottom:0.5rem">Récupération · journal cumulé</p>
+          <div class="summary-cols-3">
+            <div>
+              <p class="summary-sublabel">Créées</p>
+              <p class="summary-subvalue">${formatHours(calc.ledgerCreatedMin || 0)}</p>
+            </div>
+            <div>
+              <p class="summary-sublabel">Récupérées</p>
+              <p class="summary-subvalue" style="color:#7FB87F">${formatHours(calc.ledgerRecoveredMin || 0)}</p>
+              ${recoveredBreakdown}
+            </div>
+            <div>
+              <p class="summary-sublabel">Solde restant</p>
+              <p class="summary-subvalue" style="color:${isClearedRecup ? '#7FB87F' : '#E8A547'}">${isClearedRecup ? '0h 00 ✓' : formatHours(remainingMin)}</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const deficitBlock = '';
+
+      // Heures dues block: HS not yet paid carried from previous month or this month
+      let duesBlock = '';
+      if (calc.monthInfo) {
+        const mi = calc.monthInfo;
+        const carryIn25 = mi.carryInHS25Min || 0;
+        const carryIn50 = mi.carryInHS50Min || 0;
+        const dueOut25 = mi.carryOutHS25Min || 0;
+        const dueOut50 = mi.carryOutHS50Min || 0;
+        const paid25 = mi.paidHS25Min || 0;
+        const paid50 = mi.paidHS50Min || 0;
+        const totalDueOut = dueOut25 + dueOut50;
+        const totalCarryIn = carryIn25 + carryIn50;
+        const totalPaid = paid25 + paid50;
+        // Show the block if anything is happening: HS to carry forward, paid HS recorded, or carryover from previous
+        if (totalDueOut > 0 || totalPaid > 0 || totalCarryIn > 0) {
+          const monthLabel = state.currentDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+          const dueParts = [];
+          if (dueOut25 > 0) dueParts.push(formatHours(dueOut25) + ' HS 25%');
+          if (dueOut50 > 0) dueParts.push(formatHours(dueOut50) + ' HS 50%');
+          const carryParts = [];
+          if (carryIn25 > 0) carryParts.push(formatHours(carryIn25) + ' HS 25%');
+          if (carryIn50 > 0) carryParts.push(formatHours(carryIn50) + ' HS 50%');
+          const paidParts = [];
+          if (paid25 > 0) paidParts.push(formatHours(paid25) + ' HS 25%');
+          if (paid50 > 0) paidParts.push(formatHours(paid50) + ' HS 50%');
+
+          duesBlock = `
+            <div class="summary-section">
+              <p class="summary-label" style="text-align:center; margin-bottom:0.5rem">Heures supplémentaires · ${escapeHtml(monthLabel)}</p>
+              <div class="summary-cols-3">
+                <div>
+                  <p class="summary-sublabel">Reportées mois préc.</p>
+                  <p class="summary-subvalue">${formatHours(totalCarryIn)}</p>
+                  ${carryParts.length ? `<p class="summary-subnote">${carryParts.join(' + ')}</p>` : ''}
+                </div>
+                <div>
+                  <p class="summary-sublabel">Payées</p>
+                  <p class="summary-subvalue" style="color:#7FB87F">${formatHours(totalPaid)}</p>
+                  ${paidParts.length ? `<p class="summary-subnote" style="color:#A8C9A8">${paidParts.join(' + ')}</p>` : ''}
+                </div>
+                <div>
+                  <p class="summary-sublabel">Dues</p>
+                  <p class="summary-subvalue" style="color:${totalDueOut > 0 ? '#E8A547' : '#7FB87F'}">${totalDueOut > 0 ? formatHours(totalDueOut) : '0h 00 ✓'}</p>
+                  ${dueParts.length ? `<p class="summary-subnote" style="color:#E8C99C">${dueParts.join(' + ')}</p>` : ''}
+                </div>
+              </div>
+              <p style="text-align:center; font-size:0.625rem; color:#A89F90; margin:0.5rem 0 0; font-style:italic">À configurer dans Réglages → "HS payées par l'employeur"</p>
+            </div>
+          `;
+        }
+      }
+
+      // Férié / dimanche / nuit premium block
+      const ferieOnlyMin = (calc.ferieWorkedMin || 0) - (calc.sundayWorkedMin || 0);
+      const showFerieBlock = calc.ferieWorkedH > 0 || calc.ferieAutoH > 0 || calc.nightMin > 0;
+      const ferieBlock = showFerieBlock ? `
+        <div class="summary-section" style="text-align:center">
+          ${calc.ferieAutoH > 0 ? `<p class="summary-label">Férié non travaillé · auto</p>
+          <p class="summary-value">+${formatHours(calc.ferieAutoMin)}</p>` : ''}
+          ${ferieOnlyMin > 0 ? `<p class="summary-label" style="margin-top:${calc.ferieAutoH > 0 ? '0.625rem' : '0'}">Férié travaillé · +100%</p>
+          <p class="summary-value summary-value-highlight">${formatHours(ferieOnlyMin)}</p>` : ''}
+          ${calc.sundayWorkedMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0) ? '0.625rem' : '0'}">Dimanche travaillé · +100%</p>
+          <p class="summary-value summary-value-highlight">${formatHours(calc.sundayWorkedMin)}</p>` : ''}
+          ${calc.nightMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0 || calc.sundayWorkedMin > 0) ? '0.625rem' : '0'}">Heures de nuit (22h–6h) · +20%</p>
+          <p class="summary-value" style="color:#9BB5D6">${formatHours(calc.nightMin)}</p>` : ''}
+        </div>
+      ` : '';
+
+      // Monthly salary calculation (1st to last day of the month containing currentDate)
+      const monthStart = new Date(state.currentDate.getFullYear(), state.currentDate.getMonth(), 1);
+      const monthEnd = new Date(state.currentDate.getFullYear(), state.currentDate.getMonth() + 1, 0);
+      let monthSalary = null;
+      if (calc.taux > 0) {
+        const monthCalc = calcRange(monthStart, monthEnd);
+        const cotisationsPct = parseFloat(state.settings.cotisations);
+        const cotisationsRate = isNaN(cotisationsPct) ? 0.23 : cotisationsPct / 100;
+        const netEstimate = monthCalc.salaireTotal * (1 - cotisationsRate);
+        monthSalary = {
+          brut: monthCalc.salaireTotal,
+          majoration: monthCalc.majoration,
+          net: netEstimate,
+          monthLabel: monthStart.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
+        };
+      }
+
+      const salaireBlock = monthSalary ? `
+        <div class="summary-section">
+          <p class="summary-label" style="text-align:center; margin-bottom:0.5rem">Salaire ${escapeHtml(monthSalary.monthLabel)}</p>
+          <div class="summary-cols-2">
+            <div>
+              <p class="summary-sublabel">Brut estimé</p>
+              <p class="summary-subvalue">${monthSalary.brut.toFixed(2)} €</p>
+              <p class="summary-subnote">net ~ ${monthSalary.net.toFixed(2)} €</p>
+            </div>
+            <div>
+              <p class="summary-sublabel">dont majoration</p>
+              <p class="summary-subvalue ${monthSalary.majoration > 0 ? 'summary-value-highlight' : ''}">+${monthSalary.majoration.toFixed(2)} €</p>
+            </div>
+          </div>
+        </div>
+      ` : '';
+
+      const daysHtml = DAYS.map((d, i) => renderDayCard(d, i)).join('');
+
+      document.getElementById('app').innerHTML = `
+        <header>
+          <div class="header-row">
+            <div>
+              <h1>Feuille de temps</h1>
+              <p class="subtitle">droit français · seuil ${seuil}h · HS +25%/+50% · férié & dimanche +100% · nuit +20%</p>
+            </div>
+            <button class="btn btn-ghost" onclick="toggleSettings()" aria-label="Réglages">${ICONS.settings}</button>
+          </div>
+        </header>
+
+        ${settingsHtml}
+        ${backupReminder}
+
+        <div class="week-nav">
+          <button class="btn btn-ghost" onclick="goToPrevWeek()" aria-label="Semaine précédente">${ICONS.chevronLeft}</button>
+          <div style="text-align:center; cursor:pointer" onclick="goToToday()">
+            <p class="week-label-week">Semaine ${weekNum}</p>
+            <p class="week-label-dates">${fmtDate(monday)} — ${fmtDate(sunday)}</p>
+          </div>
+          <button class="btn btn-ghost" onclick="goToNextWeek()" aria-label="Semaine suivante">${ICONS.chevronRight}</button>
+        </div>
+
+        <div class="summary">
+          <div class="summary-grid">
+            <div><p class="summary-label">Travaillé</p><p class="summary-value">${formatHours(calc.workedMin)}</p></div>
+            <div><p class="summary-label">Normales</p><p class="summary-value">${formatHours((calc.heuresNormales + calc.ferieAutoH) * 60)}</p></div>
+            <div>
+              <p class="summary-label">HS 25%</p>
+              <p class="summary-value ${calc.hs25Raw > 0 ? 'summary-value-highlight' : ''}">${formatHours(calc.hs25Raw * 60)}</p>
+              ${(calc.hs25Raw - calc.netHS25) > 0.0001 ? `<p class="summary-subnote">dont ${formatHours((calc.hs25Raw - calc.netHS25) * 60)} récupérées</p>` : ''}
+            </div>
+            <div>
+              <p class="summary-label">HS 50%</p>
+              <p class="summary-value ${calc.hs50Raw > 0 ? 'summary-value-highlight' : ''}">${formatHours(calc.hs50Raw * 60)}</p>
+              ${(calc.hs50Raw - calc.netHS50) > 0.0001 ? `<p class="summary-subnote">dont ${formatHours((calc.hs50Raw - calc.netHS50) * 60)} récupérées</p>` : ''}
+            </div>
+          </div>
+          ${recupBlock}
+          ${duesBlock}
+          ${deficitBlock}
+          ${ferieBlock}
+          ${salaireBlock}
+        </div>
+
+        <div style="margin-bottom:1rem; display:flex; justify-content:center">
+          <button class="btn btn-secondary" onclick="toggleTemplates()">${ICONS.sparkles} Charger une semaine type</button>
+        </div>
+
+        ${templatesHtml}
+
+        <div class="days-list">${daysHtml}</div>
+
+        <div class="actions-row">
+          <button class="btn btn-primary" onclick="openExport()">${ICONS.pdf} Exporter en PDF</button>
+        </div>
+
+        <div class="footer">
+          Tes données sont enregistrées sur ton iPhone.<br>
+          <small>Fériés français calculés auto · Férié non travaillé → 7h auto · Sous-heures → "À récupérer" déduit des HS.</small>
+        </div>
+      `;
+
+      document.getElementById('modal-root').innerHTML = renderExportModal();
+    }
+
+    // --- Init ---
+    loadSettings();
+    loadPaidHS();
+    loadWeek();
+    render();
+  </script>
+</body>
+</html>
