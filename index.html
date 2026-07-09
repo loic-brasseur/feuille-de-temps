@@ -644,6 +644,34 @@
     function savePaidHS() {
       try { localStorage.setItem('paidHS', JSON.stringify(state.paidHS || {})); } catch (e) {}
     }
+
+    // --- Férié credit overrides ---
+    // Structure: { "YYYY-MM-DD": minutes } — custom credited duration for an
+    // unworked holiday (default is the daily contractual duration, e.g. 7h).
+    function loadFerieCredits() {
+      try {
+        const data = localStorage.getItem('ferieCredits');
+        state.ferieCredits = data ? JSON.parse(data) : {};
+      } catch (e) { state.ferieCredits = {}; }
+    }
+    function saveFerieCredits() {
+      try { localStorage.setItem('ferieCredits', JSON.stringify(state.ferieCredits || {})); } catch (e) {}
+    }
+    function setFerieCredit(iso, minutes) {
+      if (!state.ferieCredits) state.ferieCredits = {};
+      const dailyMin = dailyContractualMinutes(state.settings);
+      if (!minutes || minutes <= 0 || minutes === dailyMin) {
+        delete state.ferieCredits[iso]; // back to default
+      } else {
+        state.ferieCredits[iso] = minutes;
+      }
+      saveFerieCredits();
+      render();
+    }
+    function setFerieCreditManual(iso, value) {
+      const minutes = parseHoursInput(value);
+      setFerieCredit(iso, minutes);
+    }
     function setPaidHSForMonth(monthKey, hs25Min, hs50Min) {
       if (!state.paidHS) state.paidHS = {};
       if ((!hs25Min || hs25Min === 0) && (!hs50Min || hs50Min === 0)) {
@@ -911,8 +939,12 @@
       };
 
       if (ferie && isWorkingDay && !hasAny) {
-        // Empty férié on working day → auto 7h normal
-        meta.ferieAutoMin = dailyMin;
+        // Empty férié on working day → auto credit.
+        // Default = daily contractual (7h), but the user can override per date
+        // (e.g. 8h45 when the holiday falls on a 4-day-week working day).
+        const iso = isoDate(date);
+        const custom = (state.ferieCredits && state.ferieCredits[iso]) || 0;
+        meta.ferieAutoMin = custom > 0 ? custom : dailyMin;
       } else if (workedMin > 0 && ferie) {
         // Worked on férié → bonus on worked hours
         meta.ferieWorkedMin = workedMin;
@@ -993,11 +1025,15 @@
           const countedWorked = inContract ? meta.workedMin : 0;
           // Auto férié credit: 7h normal added to weekly total
           const countedFerieAuto = inContract ? meta.ferieAutoMin : 0;
-          // Absence: if a working day has an absence entry and no work, day is "covered" by 7h
+          // Absence: if a working day has an absence entry and no work, the day is
+          // "covered" by the daily contractual duration (7h) OR by a per-date
+          // custom credit (e.g. 8h45 when the absence falls on a 4-day-week day).
           const isWorkingDay = meta.isWorkingDay;
           let countedAbsence = 0;
           if (inContract && isWorkingDay && meta.absencePresent && meta.workedMin === 0 && !meta.ferie) {
-            countedAbsence = meta.dailyMin;
+            const isoAbs = isoDate(date);
+            const customAbs = (state.ferieCredits && state.ferieCredits[isoAbs]) || 0;
+            countedAbsence = customAbs > 0 ? customAbs : meta.dailyMin;
           }
           weekWorkedMin += countedWorked;
           weekCoveredMin += countedWorked + countedFerieAuto + countedAbsence;
@@ -1482,6 +1518,7 @@
         app: 'feuille-de-temps',
         settings: state.settings,
         paidHS: state.paidHS || {},
+        ferieCredits: state.ferieCredits || {},
         templates: state.templates || [],
         weeks: {}
       };
@@ -1561,17 +1598,18 @@
             const ok = confirm(`Restaurer cette sauvegarde ?\n\nDate : ${exportedAt}\nSemaines : ${weekCount}\n\n⚠️ Cette opération REMPLACERA toutes les données actuelles.`);
             if (!ok) return;
 
-            // Clear current week data, settings, paidHS, and templates
+            // Clear current week data, settings, paidHS, ferieCredits, and templates
             const toRemove = [];
             for (let i = 0; i < localStorage.length; i++) {
               const k = localStorage.key(i);
-              if (k && (/^week-\d{4}-W\d{2}$/.test(k) || k === 'settings' || k === 'paidHS' || k === 'templates')) toRemove.push(k);
+              if (k && (/^week-\d{4}-W\d{2}$/.test(k) || k === 'settings' || k === 'paidHS' || k === 'ferieCredits' || k === 'templates')) toRemove.push(k);
             }
             toRemove.forEach(k => localStorage.removeItem(k));
 
             // Restore
             if (data.settings) localStorage.setItem('settings', JSON.stringify(data.settings));
             if (data.paidHS) localStorage.setItem('paidHS', JSON.stringify(data.paidHS));
+            if (data.ferieCredits) localStorage.setItem('ferieCredits', JSON.stringify(data.ferieCredits));
             if (data.templates) localStorage.setItem('templates', JSON.stringify(data.templates));
             Object.keys(data.weeks).forEach(k => {
               localStorage.setItem(k, JSON.stringify(data.weeks[k]));
@@ -1579,6 +1617,7 @@
 
             loadSettings();
             loadPaidHS();
+            loadFerieCredits();
             loadTemplates();
             loadWeek();
             alert('Restauration réussie : ' + weekCount + ' semaines.');
@@ -2064,10 +2103,44 @@
       // Auto-blocs (férié non travaillé / à récupérer)
       let autoHtml = '';
       if (meta.ferieAutoMin > 0) {
+        const iso = isoDate(date);
+        const dailyMin = dailyContractualMinutes(state.settings);
+        const custom = (state.ferieCredits && state.ferieCredits[iso]) || 0;
+        const currentCredit = custom > 0 ? custom : dailyMin;
+        const is7h = currentCredit === dailyMin;
+        const is845 = currentCredit === 525;
+        const isOther = !is7h && !is845;
         autoHtml += `
           <div class="auto-entry auto-entry-ferie">
             <span>★ Férié non travaillé · ${escapeHtml(ferie)}</span>
             <span class="auto-entry-value">+${formatHours(meta.ferieAutoMin)}</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.375rem; margin-top:0.5rem; flex-wrap:wrap">
+            <span style="font-size:0.625rem; color:#7A6F5C; text-transform:uppercase; letter-spacing:0.08em; font-weight:500">Durée créditée :</span>
+            <button class="pill ${is7h ? 'pill-active' : ''}" ${is7h ? 'style="--pill-bg:rgba(197,107,90,0.15); --pill-color:#9A4F3E"' : ''} onclick="setFerieCredit('${iso}', ${dailyMin})">${formatHours(dailyMin)}</button>
+            <button class="pill ${is845 ? 'pill-active' : ''}" ${is845 ? 'style="--pill-bg:rgba(197,107,90,0.15); --pill-color:#9A4F3E"' : ''} onclick="setFerieCredit('${iso}', 525)">8h 45</button>
+            <input type="text" class="input" inputmode="decimal" value="${isOther ? formatHours(currentCredit).replace(' ', '') : ''}" placeholder="autre" onchange="setFerieCreditManual('${iso}', this.value)" style="width:72px; font-size:0.8125rem; padding:0.375rem 0.5rem; min-height:32px; text-align:center">
+          </div>
+        `;
+      } else if (meta.absencePresent && meta.workedMin === 0 && !ferie && i < 5) {
+        // Full-day absence on a working day → show covered duration picker
+        const iso = isoDate(date);
+        const dailyMin = dailyContractualMinutes(state.settings);
+        const custom = (state.ferieCredits && state.ferieCredits[iso]) || 0;
+        const currentCredit = custom > 0 ? custom : dailyMin;
+        const is7h = currentCredit === dailyMin;
+        const is845 = currentCredit === 525;
+        const isOther = !is7h && !is845;
+        autoHtml += `
+          <div class="auto-entry">
+            <span>Journée couverte (absence)</span>
+            <span class="auto-entry-value">+${formatHours(currentCredit)}</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.375rem; margin-top:0.5rem; flex-wrap:wrap">
+            <span style="font-size:0.625rem; color:#7A6F5C; text-transform:uppercase; letter-spacing:0.08em; font-weight:500">Durée couverte :</span>
+            <button class="pill ${is7h ? 'pill-active' : ''}" ${is7h ? 'style="--pill-bg:rgba(197,107,90,0.15); --pill-color:#9A4F3E"' : ''} onclick="setFerieCredit('${iso}', ${dailyMin})">${formatHours(dailyMin)}</button>
+            <button class="pill ${is845 ? 'pill-active' : ''}" ${is845 ? 'style="--pill-bg:rgba(197,107,90,0.15); --pill-color:#9A4F3E"' : ''} onclick="setFerieCredit('${iso}', 525)">8h 45</button>
+            <input type="text" class="input" inputmode="decimal" value="${isOther ? formatHours(currentCredit).replace(' ', '') : ''}" placeholder="autre" onchange="setFerieCreditManual('${iso}', this.value)" style="width:72px; font-size:0.8125rem; padding:0.375rem 0.5rem; min-height:32px; text-align:center">
           </div>
         `;
       }
@@ -2649,6 +2722,7 @@
     // --- Init ---
     loadSettings();
     loadPaidHS();
+    loadFerieCredits();
     loadTemplates();
     loadWeek();
     render();
