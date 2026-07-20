@@ -316,6 +316,11 @@
   <script>
     'use strict';
 
+    // Bumped on every delivered version — visible in the footer of the app,
+    // so a mismatch between "what you see" and "what I just fixed" is a
+    // 2-second check instead of a multi-step diagnostic.
+    const APP_VERSION = '2026-07-20c';
+
     const DAYS = [
       { key: 'lundi', label: 'Lundi' },
       { key: 'mardi', label: 'Mardi' },
@@ -2702,6 +2707,7 @@
             <div>
               <h1>Feuille de temps</h1>
               <p class="subtitle">droit français · seuil ${seuil}h · HS +25%/+50% · férié & dimanche +100% · nuit +20%</p>
+              <p style="font-size:0.625rem; color:#C9BBA0; margin:0.25rem 0 0; font-family:'JetBrains Mono',monospace">v${APP_VERSION}</p>
             </div>
             <button class="btn btn-ghost" onclick="toggleSettings()" aria-label="Réglages">${ICONS.settings}</button>
           </div>
