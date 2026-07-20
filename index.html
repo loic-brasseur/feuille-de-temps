@@ -1278,6 +1278,35 @@
       return monthResults.get(monthKey) || null;
     }
 
+    // Snapshot of HS dues, cumulated since the very first week ever entered.
+    // The underlying number (carryOutHS25Min/carryOutHS50Min of the most recent
+    // month) already IS the cumulative total — resolveAllMonths() chains every
+    // month chronologically from the first one found in storage, propagating
+    // whatever wasn't compensated or declared paid forward, month after month.
+    // What this function adds is surfacing WHERE that chain starts, so the
+    // card's label makes the "depuis le début" nature explicit rather than
+    // reading like it's only about the current month.
+    function getTodayDuesSnapshot() {
+      const { monthResults } = resolveAllMonths();
+      if (monthResults.size === 0) return null;
+      const allKeys = Array.from(monthResults.keys()).sort();
+      const firstKey = allKeys[0];
+      const today = new Date();
+      const todayKey = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
+      // Use today's real month if it has data; otherwise the latest month that does
+      // (e.g. app opened before this month's first week was entered).
+      const key = monthResults.has(todayKey) ? todayKey : allKeys[allKeys.length - 1];
+      const r = monthResults.get(key);
+      const firstDate = parseIsoDate(firstKey + '-01');
+      const sinceLabel = firstDate ? firstDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }) : firstKey;
+      return {
+        dueMin: (r.carryOutHS25Min || 0) + (r.carryOutHS50Min || 0),
+        dueHS25Min: r.carryOutHS25Min || 0,
+        dueHS50Min: r.carryOutHS50Min || 0,
+        sinceLabel
+      };
+    }
+
     // --- Calculations ---
     function getCurrentCalc() {
       const monday = getMondayOfWeek(state.currentDate);
@@ -2654,6 +2683,19 @@
 
       const daysHtml = DAYS.map((d, i) => renderDayCard(d, i)).join('');
 
+      const duesSnapshot = getTodayDuesSnapshot();
+      const duesSnapshotHtml = duesSnapshot ? `
+        <div class="card" style="margin-bottom:1rem; padding:0.875rem 1.125rem; border:1.5px solid ${duesSnapshot.dueMin > 0 ? 'rgba(232,165,71,0.5)' : 'rgba(127,184,127,0.45)'}; background:${duesSnapshot.dueMin > 0 ? 'rgba(254,242,226,0.55)' : 'rgba(232,243,232,0.4)'}">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem">
+            <div style="min-width:0">
+              <p style="font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.08em; color:#7A6F5C; margin:0 0 0.1875rem; font-weight:500">Heures supplémentaires dues</p>
+              <p style="font-size:0.75rem; color:#A89F90; margin:0; font-style:italic">cumul depuis ${escapeHtml(duesSnapshot.sinceLabel)}</p>
+            </div>
+            <p style="font-family:'JetBrains Mono',monospace; font-size:1.5rem; font-weight:700; margin:0; flex-shrink:0; color:${duesSnapshot.dueMin > 0 ? '#8A6320' : '#5B7B5B'}">${duesSnapshot.dueMin > 0 ? formatHours(duesSnapshot.dueMin) : '0h 00 ✓'}</p>
+          </div>
+        </div>
+      ` : '';
+
       document.getElementById('app').innerHTML = `
         <header>
           <div class="header-row">
@@ -2665,6 +2707,7 @@
           </div>
         </header>
 
+        ${duesSnapshotHtml}
         ${settingsHtml}
         ${backupReminder}
 
