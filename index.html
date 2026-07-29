@@ -1021,6 +1021,7 @@
         // Covered hours = worked + auto-férié + absence (congé/maladie/arrêt = journée couverte)
         let weekWorkedMin = 0;       // strict worked hours (for display only)
         let weekCoveredMin = 0;      // worked + ferie auto + full-day absence (for HS/récup calc)
+        let weekNightMin = 0;        // hours worked within 22h-6h
         const dayInfos = [];
         for (let i = 0; i < 7; i++) {
           const date = new Date(monday); date.setDate(monday.getDate() + i);
@@ -1042,6 +1043,7 @@
           }
           weekWorkedMin += countedWorked;
           weekCoveredMin += countedWorked + countedFerieAuto + countedAbsence;
+          weekNightMin += inContract ? (meta.nightMin || 0) : 0;
           dayInfos.push({ date, meta, inContract });
           const iso = isoDate(date);
           perDay.set(iso, { workedMin: meta.workedMin, weekKey: wKey, date, inContract });
@@ -1063,10 +1065,25 @@
           weekRecupMin = -delta;
         }
 
+        // Night compensatory rest: the +20% night premium is taken as TIME OFF
+        // rather than pay (12 min per hour of night work). Deliberately kept out
+        // of the HS calculation so it is not re-majorated at 25%/50%, and out of
+        // workedMin so the timesheet still reflects hours actually worked.
+        const weekNightCreditMin = Math.round(weekNightMin * 0.20);
+
+        // The credit first cancels out any récup debt of the same week; whatever
+        // is left over stays as time owed to the employee.
+        const recupAfterNight = Math.max(0, weekRecupMin - weekNightCreditMin);
+        const nightCreditLeftMin = Math.max(0, weekNightCreditMin - weekRecupMin);
+        weekRecupMin = recupAfterNight;
+
         perWeek.set(wKey, {
           monday,
           thresholdMin,
           workedMin: weekWorkedMin,
+          nightMin: weekNightMin,
+          nightCreditMin: weekNightCreditMin,
+          nightCreditLeftMin,
           hs25Min: weekHS25Min,
           hs50Min: weekHS50Min,
           recupMin: weekRecupMin
@@ -1261,7 +1278,7 @@
 
       const weekStats = perWeek.get(wKey);
       if (!weekStats) {
-        return { hs25BrutMin: 0, hs50BrutMin: 0, netHS25Min: 0, netHS50Min: 0, recupMin: 0, thresholdMin: weeklyThresholdMin(monday, state.settings) };
+        return { hs25BrutMin: 0, hs50BrutMin: 0, netHS25Min: 0, netHS50Min: 0, recupMin: 0, nightCreditMin: 0, nightCreditLeftMin: 0, thresholdMin: weeklyThresholdMin(monday, state.settings) };
       }
 
       const wNet = weekNetHS.get(wKey) || { netHS25: weekStats.hs25Min, netHS50: weekStats.hs50Min };
@@ -1272,6 +1289,8 @@
         netHS25Min: wNet.netHS25,
         netHS50Min: wNet.netHS50,
         recupMin: weekStats.recupMin,
+        nightCreditMin: weekStats.nightCreditMin || 0,
+        nightCreditLeftMin: weekStats.nightCreditLeftMin || 0,
         thresholdMin: weekStats.thresholdMin
       };
     }
@@ -1353,9 +1372,11 @@
       const salaireHS25 = netHS25 * taux * 1.25;
       const salaireHS50 = netHS50 * taux * 1.5;
       const bonusFerie = ferieWorkedH * taux; // +100% on holiday/Sunday worked hours
-      const bonusNuit = nightH * taux * 0.20;  // +20% night premium (22h-6h)
-      const salaireTotal = salaireBase + salaireHS25 + salaireHS50 + bonusFerie + bonusNuit;
-      const majoration = netHS25 * taux * 0.25 + netHS50 * taux * 0.5 + bonusFerie + bonusNuit;
+      // The +20% night premium is NOT paid — it is taken as compensatory rest
+      // (see nightCreditMin), so it must not appear in the salary estimate too.
+      const bonusNuit = 0;
+      const salaireTotal = salaireBase + salaireHS25 + salaireHS50 + bonusFerie;
+      const majoration = netHS25 * taux * 0.25 + netHS50 * taux * 0.5 + bonusFerie;
 
       // Cumulative ledger through this week
       const sundayOfWeek = new Date(monday); sundayOfWeek.setDate(monday.getDate() + 6);
@@ -1379,6 +1400,8 @@
       return {
         workedMin, ferieWorkedMin, ferieAutoMin, recuperationMin,
         nightMin, nightH, sundayWorkedMin, bonusNuit,
+        nightCreditMin: weekResolved.nightCreditMin || 0,
+        nightCreditLeftMin: weekResolved.nightCreditLeftMin || 0,
         totalHours, ferieAutoH, ferieWorkedH,
         recupH: recuperationMin / 60,
         ledgerCreatedMin: ledger.totalCreatedMin,
@@ -2647,8 +2670,9 @@
           <p class="summary-value summary-value-highlight">${formatHours(ferieOnlyMin)}</p>` : ''}
           ${calc.sundayWorkedMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0) ? '0.625rem' : '0'}">Dimanche travaillé · +100%</p>
           <p class="summary-value summary-value-highlight">${formatHours(calc.sundayWorkedMin)}</p>` : ''}
-          ${calc.nightMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0 || calc.sundayWorkedMin > 0) ? '0.625rem' : '0'}">Heures de nuit (22h–6h) · +20%</p>
-          <p class="summary-value" style="color:#9BB5D6">${formatHours(calc.nightMin)}</p>` : ''}
+          ${calc.nightMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0 || calc.sundayWorkedMin > 0) ? '0.625rem' : '0'}">Heures de nuit (22h–6h)</p>
+          <p class="summary-value" style="color:#9BB5D6">${formatHours(calc.nightMin)}</p>
+          <p class="summary-subnote" style="color:#9BB5D6">+20% en repos → ${formatHours(calc.nightCreditMin)} à récupérer</p>` : ''}
         </div>
       ` : '';
 
