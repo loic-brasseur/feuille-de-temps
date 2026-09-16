@@ -319,7 +319,7 @@
     // Bumped on every delivered version — visible in the footer of the app,
     // so a mismatch between "what you see" and "what I just fixed" is a
     // 2-second check instead of a multi-step diagnostic.
-    const APP_VERSION = '2026-07-20g';
+    const APP_VERSION = '2026-07-20h';
 
     const DAYS = [
       { key: 'lundi', label: 'Lundi' },
@@ -1346,8 +1346,26 @@
       const r = monthResults.get(key);
       const firstDate = parseIsoDate(firstKey + '-01');
       const sinceLabel = firstDate ? firstDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }) : firstKey;
+
+      // HS still owed TO the employee (positive side of the balance)
+      const dueMin = (r.carryOutHS25Min || 0) + (r.carryOutHS50Min || 0);
+
+      // Récup never compensated = hours the employee owes the COMPANY.
+      // It accumulates month by month and is never wiped, so sum it across
+      // every month up to and including the reference one.
+      let debtMin = 0;
+      for (const k of allKeys) {
+        if (k > key) break;
+        debtMin += monthResults.get(k).remainingDebtMin || 0;
+      }
+
+      // Single net balance: positive = the company owes you, negative = you owe hours.
+      const netMin = dueMin - debtMin;
+
       return {
-        dueMin: (r.carryOutHS25Min || 0) + (r.carryOutHS50Min || 0),
+        netMin,
+        dueMin,
+        debtMin,
         dueHS25Min: r.carryOutHS25Min || 0,
         dueHS50Min: r.carryOutHS50Min || 0,
         sinceLabel
@@ -2752,17 +2770,32 @@
       const daysHtml = DAYS.map((d, i) => renderDayCard(d, i)).join('');
 
       const duesSnapshot = getTodayDuesSnapshot();
-      const duesSnapshotHtml = duesSnapshot ? `
-        <div class="card" style="margin-bottom:1rem; padding:0.875rem 1.125rem; border:1.5px solid ${duesSnapshot.dueMin > 0 ? 'rgba(232,165,71,0.5)' : 'rgba(127,184,127,0.45)'}; background:${duesSnapshot.dueMin > 0 ? 'rgba(254,242,226,0.55)' : 'rgba(232,243,232,0.4)'}">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem">
-            <div style="min-width:0">
-              <p style="font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.08em; color:#7A6F5C; margin:0 0 0.1875rem; font-weight:500">Heures supplémentaires dues</p>
-              <p style="font-size:0.75rem; color:#A89F90; margin:0; font-style:italic">cumul depuis ${escapeHtml(duesSnapshot.sinceLabel)}</p>
+      let duesSnapshotHtml = '';
+      if (duesSnapshot) {
+        const net = duesSnapshot.netMin;
+        // Three states: company owes you / you owe the company / settled
+        const isPositive = net > 0;
+        const isNegative = net < 0;
+        const borderCol = isNegative ? 'rgba(197,107,90,0.5)' : (isPositive ? 'rgba(232,165,71,0.5)' : 'rgba(127,184,127,0.45)');
+        const bgCol = isNegative ? 'rgba(252,235,232,0.55)' : (isPositive ? 'rgba(254,242,226,0.55)' : 'rgba(232,243,232,0.4)');
+        const valueCol = isNegative ? '#9A4F3E' : (isPositive ? '#8A6320' : '#5B7B5B');
+        const title = isNegative ? 'Heures dues à l\'entreprise' : 'Heures supplémentaires dues';
+        const valueTxt = net === 0 ? '0h 00 ✓' : (isPositive ? '+' : '') + formatHours(net);
+        // When both sides exist, show how the net was reached
+        const showDetail = duesSnapshot.dueMin > 0 && duesSnapshot.debtMin > 0;
+        duesSnapshotHtml = `
+          <div class="card" style="margin-bottom:1rem; padding:0.875rem 1.125rem; border:1.5px solid ${borderCol}; background:${bgCol}">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem">
+              <div style="min-width:0">
+                <p style="font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.08em; color:#7A6F5C; margin:0 0 0.1875rem; font-weight:500">${escapeHtml(title)}</p>
+                <p style="font-size:0.75rem; color:#A89F90; margin:0; font-style:italic">cumul depuis ${escapeHtml(duesSnapshot.sinceLabel)}</p>
+                ${showDetail ? `<p style="font-size:0.6875rem; color:#A89F90; margin:0.1875rem 0 0">${formatHours(duesSnapshot.dueMin)} HS − ${formatHours(duesSnapshot.debtMin)} à rattraper</p>` : ''}
+              </div>
+              <p style="font-family:'JetBrains Mono',monospace; font-size:1.5rem; font-weight:700; margin:0; flex-shrink:0; color:${valueCol}">${valueTxt}</p>
             </div>
-            <p style="font-family:'JetBrains Mono',monospace; font-size:1.5rem; font-weight:700; margin:0; flex-shrink:0; color:${duesSnapshot.dueMin > 0 ? '#8A6320' : '#5B7B5B'}">${duesSnapshot.dueMin > 0 ? formatHours(duesSnapshot.dueMin) : '0h 00 ✓'}</p>
           </div>
-        </div>
-      ` : '';
+        `;
+      }
 
       document.getElementById('app').innerHTML = `
         <header>
