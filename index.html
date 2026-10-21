@@ -319,7 +319,7 @@
     // Bumped on every delivered version — visible in the footer of the app,
     // so a mismatch between "what you see" and "what I just fixed" is a
     // 2-second check instead of a multi-step diagnostic.
-    const APP_VERSION = '2026-07-20h';
+    const APP_VERSION = '2026-10-21b';
 
     const DAYS = [
       { key: 'lundi', label: 'Lundi' },
@@ -1167,6 +1167,11 @@
       }
 
       let carryHS25 = 0, carryHS50 = 0; // owed HS carried over from previous month
+      // Récup debt left unpaid at the end of a month is NOT written off: it rolls
+      // into the next month so later overtime can still clear it (1h of HS25 wipes
+      // 1h15 of debt). Without this, a deficit in a month with no overtime would be
+      // stuck forever — wrong when overtime is taken as time off rather than paid.
+      let carryDebt = 0;
 
       for (const monthKey of sortedMonthKeys) {
         const stats = perMonth.get(monthKey) || { hs25Min: 0, hs50Min: 0, recupMin: 0 };
@@ -1175,8 +1180,11 @@
         const totalHS25BeforePay = stats.hs25Min + carryHS25;
         const totalHS50BeforePay = stats.hs50Min + carryHS50;
 
+        // Debt to clear = what this month created + what rolled over from before
+        const recupToRepay = stats.recupMin + carryDebt;
+
         // First, récup consumes HS (HS25 prioritaire)
-        const res = applyMonthlyRecup(totalHS25BeforePay, totalHS50BeforePay, stats.recupMin);
+        const res = applyMonthlyRecup(totalHS25BeforePay, totalHS50BeforePay, recupToRepay);
         // res.paidHS25/50 = HS remaining after récup compensation (these are net HS, before paid HS deduction)
 
         // Then, user-declared paid HS are deducted from those net HS
@@ -1196,6 +1204,7 @@
           // Carryover from previous month
           carryInHS25Min: carryHS25,
           carryInHS50Min: carryHS50,
+          carryInDebtMin: carryDebt,
           // Total before paid (used for recup compensation)
           totalHS25BeforePay,
           totalHS50BeforePay,
@@ -1239,9 +1248,10 @@
           });
         }
 
-        // Propagate unpaid HS to next month
+        // Propagate unpaid HS AND the outstanding récup debt to next month
         carryHS25 = unpaidHS25;
         carryHS50 = unpaidHS50;
+        carryDebt = res.outgoingDebt;
       }
 
       return { perDay, perWeek, perMonth, monthResults, weekNetHS };
@@ -1265,7 +1275,9 @@
         totalRecoveredMin += m.consumedHS25Min * 1.25 + m.consumedHS50Min * 1.5;
         totalHS25ConsumedMin += m.consumedHS25Min;
         totalHS50ConsumedMin += m.consumedHS50Min;
-        totalRemainingMin += m.remainingDebtMin;
+        // remainingDebtMin is already the running outstanding balance carried
+        // from month to month, so take the latest value rather than summing.
+        totalRemainingMin = m.remainingDebtMin;
       }
       return { totalCreatedMin, totalRecoveredMin, debt: totalRemainingMin, totalHS25ConsumedMin, totalHS50ConsumedMin };
     }
@@ -1353,19 +1365,31 @@
       // Récup never compensated = hours the employee owes the COMPANY.
       // It accumulates month by month and is never wiped, so sum it across
       // every month up to and including the reference one.
-      let debtMin = 0;
-      for (const k of allKeys) {
-        if (k > key) break;
-        debtMin += monthResults.get(k).remainingDebtMin || 0;
-      }
+      // remainingDebtMin is the running outstanding balance rolled forward from
+      // month to month, so the reference month already holds the full figure.
+      const debtMin = r.remainingDebtMin || 0;
 
       // Single net balance: positive = the company owes you, negative = you owe hours.
       const netMin = dueMin - debtMin;
+
+      // Raw TIME balance, in plain minutes with no 25%/50% majoration applied.
+      // netMin above is expressed in *majorated* overtime hours: repaying récup
+      // consumes HS at a 1.25 rate, so working 30 extra minutes only moves it
+      // by 24. This second figure answers "how many real hours am I ahead or
+      // behind", where one minute worked always moves it by exactly one minute.
+      const { perWeek } = resolveAllMonths();
+      let timeBalanceMin = 0;
+      perWeek.forEach((ws) => {
+        const wMonthKey = ws.monday.getFullYear() + '-' + String(ws.monday.getMonth() + 1).padStart(2, '0');
+        if (wMonthKey > key) return;
+        timeBalanceMin += (ws.hs25Min || 0) + (ws.hs50Min || 0) - (ws.recupMin || 0);
+      });
 
       return {
         netMin,
         dueMin,
         debtMin,
+        timeBalanceMin,
         dueHS25Min: r.carryOutHS25Min || 0,
         dueHS50Min: r.carryOutHS50Min || 0,
         sinceLabel
@@ -2772,26 +2796,33 @@
       const duesSnapshot = getTodayDuesSnapshot();
       let duesSnapshotHtml = '';
       if (duesSnapshot) {
-        const net = duesSnapshot.netMin;
-        // Three states: company owes you / you owe the company / settled
-        const isPositive = net > 0;
-        const isNegative = net < 0;
-        const borderCol = isNegative ? 'rgba(197,107,90,0.5)' : (isPositive ? 'rgba(232,165,71,0.5)' : 'rgba(127,184,127,0.45)');
-        const bgCol = isNegative ? 'rgba(252,235,232,0.55)' : (isPositive ? 'rgba(254,242,226,0.55)' : 'rgba(232,243,232,0.4)');
-        const valueCol = isNegative ? '#9A4F3E' : (isPositive ? '#8A6320' : '#5B7B5B');
-        const title = isNegative ? 'Heures dues à l\'entreprise' : 'Heures supplémentaires dues';
-        const valueTxt = net === 0 ? '0h 00 ✓' : (isPositive ? '+' : '') + formatHours(net);
-        // When both sides exist, show how the net was reached
-        const showDetail = duesSnapshot.dueMin > 0 && duesSnapshot.debtMin > 0;
+        // Main figure = the outstanding récup debt, rolled forward across months.
+        // It is the number that answers "what do I still have to make up", and it
+        // behaves exactly as expected: an hour worked under the weekly threshold
+        // removes 1h, an overtime hour removes 1h15 (the 25% majoration).
+        const debt = duesSnapshot.debtMin || 0;
+        const isClear = debt <= 0;
+        const debtCol = isClear ? '#5B7B5B' : '#9A4F3E';
+        const debtBorder = isClear ? 'rgba(127,184,127,0.45)' : 'rgba(197,107,90,0.5)';
+        const debtBg = isClear ? 'rgba(232,243,232,0.4)' : 'rgba(252,235,232,0.55)';
+        // Equivalent in overtime hours: 1h of HS25 clears 1h15 of debt
+        const hsNeededMin = Math.round(debt / 1.25);
         duesSnapshotHtml = `
-          <div class="card" style="margin-bottom:1rem; padding:0.875rem 1.125rem; border:1.5px solid ${borderCol}; background:${bgCol}">
+          <div class="card" style="margin-bottom:1rem; padding:0.875rem 1.125rem; border:1.5px solid ${debtBorder}; background:${debtBg}">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem">
               <div style="min-width:0">
-                <p style="font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.08em; color:#7A6F5C; margin:0 0 0.1875rem; font-weight:500">${escapeHtml(title)}</p>
+                <p style="font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.08em; color:#7A6F5C; margin:0 0 0.1875rem; font-weight:500">Heures à rattraper</p>
                 <p style="font-size:0.75rem; color:#A89F90; margin:0; font-style:italic">cumul depuis ${escapeHtml(duesSnapshot.sinceLabel)}</p>
-                ${showDetail ? `<p style="font-size:0.6875rem; color:#A89F90; margin:0.1875rem 0 0">${formatHours(duesSnapshot.dueMin)} HS − ${formatHours(duesSnapshot.debtMin)} à rattraper</p>` : ''}
+                ${!isClear ? `<p style="font-size:0.6875rem; color:#9A4F3E; margin:0.1875rem 0 0">soit ${formatHours(hsNeededMin)} d'heures sup (1h sup = 1h15)</p>` : ''}
               </div>
-              <p style="font-family:'JetBrains Mono',monospace; font-size:1.5rem; font-weight:700; margin:0; flex-shrink:0; color:${valueCol}">${valueTxt}</p>
+              <p style="font-family:'JetBrains Mono',monospace; font-size:1.5rem; font-weight:700; margin:0; flex-shrink:0; color:${debtCol}">${isClear ? '0h 00 ✓' : formatHours(debt)}</p>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; margin-top:0.625rem; padding-top:0.625rem; border-top:1px solid rgba(224,212,190,0.7)">
+              <div style="min-width:0">
+                <p style="font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.08em; color:#7A6F5C; margin:0 0 0.125rem; font-weight:500">HS non payées</p>
+                <p style="font-size:0.6875rem; color:#A89F90; margin:0; font-style:italic">majorées · à réclamer sur ta paie</p>
+              </div>
+              <p style="font-family:'JetBrains Mono',monospace; font-size:1.125rem; font-weight:700; margin:0; flex-shrink:0; color:${duesSnapshot.dueMin > 0 ? '#8A6320' : '#5B7B5B'}">${duesSnapshot.dueMin > 0 ? formatHours(duesSnapshot.dueMin) : '0h 00 ✓'}</p>
             </div>
           </div>
         `;
