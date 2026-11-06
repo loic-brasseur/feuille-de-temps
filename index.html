@@ -319,7 +319,7 @@
     // Bumped on every delivered version — visible in the footer of the app,
     // so a mismatch between "what you see" and "what I just fixed" is a
     // 2-second check instead of a multi-step diagnostic.
-    const APP_VERSION = '2026-11-06b';
+    const APP_VERSION = '2026-11-06c';
 
     const DAYS = [
       { key: 'lundi', label: 'Lundi' },
@@ -618,7 +618,18 @@
       } catch (e) { state.weekData = {}; }
     }
     function saveWeek() {
-      try { localStorage.setItem(getWeekKey(), JSON.stringify(state.weekData)); } catch (e) {}
+      try {
+        // A week emptied of all its entries must be REMOVED, not stored as {}.
+        // A stored empty week is read back as "worked 0h", which produces a full
+        // week of récup debt instead of simply being an unfilled week.
+        if (weekHasNoEntries(state.weekData)) localStorage.removeItem(getWeekKey());
+        else localStorage.setItem(getWeekKey(), JSON.stringify(state.weekData));
+      } catch (e) {}
+    }
+    // True when a week holds no entry at all, on any day
+    function weekHasNoEntries(weekData) {
+      if (!weekData) return true;
+      return !DAYS.some(d => getDayEntries(weekData[d.key]).length > 0);
     }
     function loadSettings() {
       try {
@@ -796,6 +807,17 @@
 
     function clearDay(dayKey) {
       delete state.weekData[dayKey];
+      saveWeek(); render();
+    }
+
+    // Wipe the whole displayed week: saveWeek() then drops its storage key, so
+    // the week goes back to "not filled in" rather than counting as 0h worked.
+    function clearWeek() {
+      const monday = getMondayOfWeek(state.currentDate);
+      const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
+      const label = fmtDate(monday) + ' — ' + fmtDate(sunday);
+      if (!confirm('Effacer toutes les saisies de la semaine du ' + label + ' ?\n\nLa semaine redeviendra vierge et ne comptera plus dans les heures à rattraper.')) return;
+      state.weekData = {};
       saveWeek(); render();
     }
 
@@ -1001,6 +1023,11 @@
             else if (raw[k] && typeof raw[k] === 'object') weekData[k] = [raw[k]];
           });
         } catch (e) { weekData = {}; }
+
+        // A week with no entry at all has simply not been filled in — it must not
+        // be read as "worked 0h", which would create a full week of récup debt.
+        // Also clears up any empty week left behind by an older version.
+        if (weekHasNoEntries(weekData)) continue;
 
         const match = wKey.match(/^week-(\d{4})-W(\d{2})$/);
         if (!match) continue;
@@ -2793,6 +2820,7 @@
       ` : '';
 
       const daysHtml = DAYS.map((d, i) => renderDayCard(d, i)).join('');
+      const hasEntriesThisWeek = !weekHasNoEntries(state.weekData);
 
       const duesSnapshot = getTodayDuesSnapshot();
       let duesSnapshotHtml = '';
@@ -2876,8 +2904,9 @@
           ${salaireBlock}
         </div>
 
-        <div style="margin-bottom:1rem; display:flex; justify-content:center">
+        <div style="margin-bottom:1rem; display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap">
           <button class="btn btn-secondary" onclick="toggleTemplates()">${ICONS.sparkles} Charger une semaine type</button>
+          ${hasEntriesThisWeek ? `<button class="btn btn-ghost" style="color:#9A4F3E" onclick="clearWeek()">${ICONS.trash} Effacer la semaine</button>` : ''}
         </div>
 
         ${templatesHtml}
