@@ -319,7 +319,7 @@
     // Bumped on every delivered version — visible in the footer of the app,
     // so a mismatch between "what you see" and "what I just fixed" is a
     // 2-second check instead of a multi-step diagnostic.
-    const APP_VERSION = '2026-10-21b';
+    const APP_VERSION = '2026-11-06a';
 
     const DAYS = [
       { key: 'lundi', label: 'Lundi' },
@@ -1022,6 +1022,7 @@
         let weekWorkedMin = 0;       // strict worked hours (for display only)
         let weekCoveredMin = 0;      // worked + ferie auto + full-day absence (for HS/récup calc)
         let weekNightMin = 0;        // hours worked within 22h-6h
+        let weekFerieBonusMin = 0;   // +100% time credit for holiday/Sunday worked
         const dayInfos = [];
         for (let i = 0; i < 7; i++) {
           const date = new Date(monday); date.setDate(monday.getDate() + i);
@@ -1041,8 +1042,14 @@
             const customAbs = (state.ferieCredits && state.ferieCredits[isoAbs]) || 0;
             countedAbsence = customAbs > 0 ? customAbs : meta.dailyMin;
           }
+          // Holiday / Sunday worked: the +100% is taken as TIME, not pay. The hours
+          // worked count once as work (countedWorked above) and once more as a bonus
+          // credit here — equivalent to keeping the paid day off you gave up. Without
+          // this, working a holiday is worth exactly as much as staying home.
+          const countedFerieBonus = inContract ? (meta.ferieWorkedMin || 0) : 0;
           weekWorkedMin += countedWorked;
-          weekCoveredMin += countedWorked + countedFerieAuto + countedAbsence;
+          weekFerieBonusMin += countedFerieBonus;
+          weekCoveredMin += countedWorked + countedFerieAuto + countedAbsence + countedFerieBonus;
           weekNightMin += inContract ? (meta.nightMin || 0) : 0;
           dayInfos.push({ date, meta, inContract });
           const iso = isoDate(date);
@@ -1081,6 +1088,7 @@
           monday,
           thresholdMin,
           workedMin: weekWorkedMin,
+          ferieBonusMin: weekFerieBonusMin,
           nightMin: weekNightMin,
           nightCreditMin: weekNightCreditMin,
           nightCreditLeftMin,
@@ -1326,6 +1334,7 @@
         recupMin: weekStats.recupMin,
         nightCreditMin: weekStats.nightCreditMin || 0,
         nightCreditLeftMin: weekStats.nightCreditLeftMin || 0,
+        ferieBonusMin: weekStats.ferieBonusMin || 0,
         thresholdMin: weekStats.thresholdMin
       };
     }
@@ -1436,12 +1445,14 @@
       const salaireBase = (heuresNormales + ferieAutoH) * taux;
       const salaireHS25 = netHS25 * taux * 1.25;
       const salaireHS50 = netHS50 * taux * 1.5;
-      const bonusFerie = ferieWorkedH * taux; // +100% on holiday/Sunday worked hours
-      // The +20% night premium is NOT paid — it is taken as compensatory rest
-      // (see nightCreditMin), so it must not appear in the salary estimate too.
+      // Neither premium is paid in cash — both are taken as time off instead:
+      // the +100% for a worked holiday/Sunday now counts as bonus hours in the
+      // weekly total (ferieBonusMin), and the +20% night premium as rest
+      // (nightCreditMin). Counting them here too would double them.
+      const bonusFerie = 0;
       const bonusNuit = 0;
-      const salaireTotal = salaireBase + salaireHS25 + salaireHS50 + bonusFerie;
-      const majoration = netHS25 * taux * 0.25 + netHS50 * taux * 0.5 + bonusFerie;
+      const salaireTotal = salaireBase + salaireHS25 + salaireHS50;
+      const majoration = netHS25 * taux * 0.25 + netHS50 * taux * 0.5;
 
       // Cumulative ledger through this week
       const sundayOfWeek = new Date(monday); sundayOfWeek.setDate(monday.getDate() + 6);
@@ -1468,6 +1479,7 @@
         nightMin, nightH, sundayWorkedMin, bonusNuit,
         nightCreditMin: weekResolved.nightCreditMin || 0,
         nightCreditLeftMin: weekResolved.nightCreditLeftMin || 0,
+        ferieBonusMin: weekResolved.ferieBonusMin || 0,
         nightLedgerEarnedMin: nightLedger.earnedMin,
         nightLedgerUsedMin: nightLedger.usedOnRecupMin,
         nightLedgerBalanceMin: nightLedger.balanceMin,
@@ -1601,10 +1613,12 @@
       const salaireBase = (normalH + ferieAutoH) * taux;
       const salaireHS25 = hs25H * taux * 1.25;
       const salaireHS50 = hs50H * taux * 1.5;
-      const bonusFerie = ferieWorkedH * taux;
-      const bonusNuit = nightH * taux * 0.20;
-      const salaireTotal = salaireBase + salaireHS25 + salaireHS50 + bonusFerie + bonusNuit;
-      const majoration = hs25H * taux * 0.25 + hs50H * taux * 0.5 + bonusFerie + bonusNuit;
+      // Holiday/Sunday +100% and night +20% are taken as time off, not cash —
+      // they already count as hours elsewhere, so they stay out of the pay figures.
+      const bonusFerie = 0;
+      const bonusNuit = 0;
+      const salaireTotal = salaireBase + salaireHS25 + salaireHS50;
+      const majoration = hs25H * taux * 0.25 + hs50H * taux * 0.5;
 
       return {
         entries, weekCount: Object.keys(weeklyTotals).length,
@@ -2744,10 +2758,12 @@
         <div class="summary-section" style="text-align:center">
           ${calc.ferieAutoH > 0 ? `<p class="summary-label">Férié non travaillé · auto</p>
           <p class="summary-value">+${formatHours(calc.ferieAutoMin)}</p>` : ''}
-          ${ferieOnlyMin > 0 ? `<p class="summary-label" style="margin-top:${calc.ferieAutoH > 0 ? '0.625rem' : '0'}">Férié travaillé · +100%</p>
-          <p class="summary-value summary-value-highlight">${formatHours(ferieOnlyMin)}</p>` : ''}
-          ${calc.sundayWorkedMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0) ? '0.625rem' : '0'}">Dimanche travaillé · +100%</p>
-          <p class="summary-value summary-value-highlight">${formatHours(calc.sundayWorkedMin)}</p>` : ''}
+          ${ferieOnlyMin > 0 ? `<p class="summary-label" style="margin-top:${calc.ferieAutoH > 0 ? '0.625rem' : '0'}">Férié travaillé</p>
+          <p class="summary-value summary-value-highlight">${formatHours(ferieOnlyMin)}</p>
+          <p class="summary-subnote">+100% en temps → ${formatHours(ferieOnlyMin)} de bonus</p>` : ''}
+          ${calc.sundayWorkedMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0) ? '0.625rem' : '0'}">Dimanche travaillé</p>
+          <p class="summary-value summary-value-highlight">${formatHours(calc.sundayWorkedMin)}</p>
+          <p class="summary-subnote">+100% en temps → ${formatHours(calc.sundayWorkedMin)} de bonus</p>` : ''}
           ${calc.nightMin > 0 ? `<p class="summary-label" style="margin-top:${(calc.ferieAutoH > 0 || ferieOnlyMin > 0 || calc.sundayWorkedMin > 0) ? '0.625rem' : '0'}">Heures de nuit (22h–6h)</p>
           <p class="summary-value" style="color:#9BB5D6">${formatHours(calc.nightMin)}</p>
           <p class="summary-subnote" style="color:#9BB5D6">+20% cette semaine → ${formatHours(calc.nightCreditMin)}</p>` : ''}
